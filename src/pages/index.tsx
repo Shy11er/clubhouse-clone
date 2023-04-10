@@ -1,3 +1,9 @@
+import Welcome from "../components/steps/Welcome";
+
 export default function Home() {
-  return <h1>1</h1>;
+  return (
+    <div>
+      <Welcome />
+    </div>
+  );
 }
