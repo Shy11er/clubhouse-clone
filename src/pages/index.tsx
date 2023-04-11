@@ -1,13 +1,15 @@
 import Welcome from "../components/steps/Welcome";
 import PhoneStep from "@/components/steps/PhoneStep";
 import Register from "@/components/steps/Register";
+import TwitterStep from "@/components/steps/TwitterStep";
 
 export default function Home() {
   return (
     <div>
       <Welcome />
       <Register />
-      <PhoneStep />
+      <TwitterStep />
+      {/* <PhoneStep /> */}
 
       <style global jsx>{`
         html,
