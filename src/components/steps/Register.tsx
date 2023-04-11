@@ -15,7 +15,7 @@ function Register() {
           className="px-4 py-2 border rounded-2xl mb-6"
           placeholder="Enter your name"
         />
-        <button className="rounded-xl bg-[#6666e4] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700">
+        <button className="rounded-xl bg-[#1DA1F2] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700">
           Next
           <FaArrowRight className="mx-2" />
         </button>

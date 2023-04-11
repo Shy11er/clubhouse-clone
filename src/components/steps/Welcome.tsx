@@ -2,6 +2,8 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 export default function Welcome() {
+  const submitRegister = () => {};
+
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className="bg-white rounded-xl max-w-xl py-20 md:mx-auto mx-8 p-8 flex flex-col items-center text-center shadow-md">
@@ -14,7 +16,10 @@ export default function Welcome() {
           rerum ratione nulla voluptatibus dignissimos tenetur perferendis!
           Porro nulla quam inventore cupiditate ipsa.
         </p>
-        <button className="rounded-xl bg-[#6666e4] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700">
+        <button
+          
+          className="rounded-xl bg-[#1DA1F2] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700"
+        >
           Get your username!
           <FaArrowRight className="mx-2" />
         </button>
