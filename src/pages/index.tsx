@@ -5,9 +5,9 @@ import Register from "@/components/steps/Register";
 export default function Home() {
   return (
     <div>
-      {/* <Welcome /> */}
+      <Welcome />
       <Register />
-      {/* <PhoneStep /> */}
+      <PhoneStep />
 
       <style global jsx>{`
         html,
