@@ -1,17 +1,48 @@
 import React from "react";
+import Image from "next/image";
+import { GiRotaryPhone } from "react-icons/gi";
+import logo from "../../../public/assets/no-avatar.jpg";
 
 function PhoneStep() {
+  const [phoneNum, setPhoneNum] = React.useState("");
+  const [isDisabled, setIsDisabled] = React.useState(true);
+
+  const onNumberChange = (e: string) => {
+    setPhoneNum(e);
+    if (e.length === 11) setIsDisabled(false);
+    else setIsDisabled(true);
+  };
+
   return (
-    <div className="w-full h-full flex justify-center items-center text-center">
-      <h1 className="text-2xl font-medium mb-6">
-        <i className="hand text-2xl">👋</i> Welcome to Clubhouse!
-      </h1>
-      <div className="bg-white rounded-xl max-w-xl py-20 md:mx-auto mx-8 p-8 flex flex-col items-center text-center">
-        <button className="rounded-xl bg-[#6666e4] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700">
-          Get your username!
+    <div className="w-full h-full flex flex-col justify-center items-center">
+      <GiRotaryPhone className="w-20 h-20 fill-red-600 text-red" />
+      {/* <Image src={logo} width="20" height="20" alt='logo'/> */}
+      <div className="flex flex-col text-center mb-8 items-center mx-4">
+        <h1 className="text-xl font-bold">Enter your phone #</h1>
+        <p>We will send you a confirmation code</p>
+      </div>
+      <div className="bg-white rounded-xl max-w-96 sm:w-96 py-14 mx-8 px-8 flex flex-col items-center text-center shadow-md">
+        <div className="mb-12 flex items-center flex-col mx-12">
+          <input
+            type="phone"
+            className="px-4 py-2 border rounded-2xl mb-6 placeholder:text-gray-400"
+            placeholder="+7 (999) 999-12-33"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            onChange={(e) => onNumberChange(e.target.value)}
+          />
+        </div>
+        <button
+          disabled={isDisabled}
+          onClick={() => console.log("first")}
+          className={
+            isDisabled
+              ? "disabled px-4 py-2"
+              : "rounded-xl bg-[#1DA1F2] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700"
+          }
+        >
+          Next
         </button>
       </div>
-      
     </div>
   );
 }

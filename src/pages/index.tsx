@@ -11,7 +11,7 @@ export default function Home() {
       <Register />
       <TwitterStep />
       <CongratStep />
-      {/* <PhoneStep /> */}
+      <PhoneStep /> 
 
       <style global jsx>{`
         html,

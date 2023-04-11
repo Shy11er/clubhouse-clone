@@ -40,3 +40,14 @@ body {
     transform: rotate(0deg);
   }
 }
+
+.disabled {
+  background: rgb(206, 206, 206);
+  color: white;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  display: flex;
+  align-items: center;
+}
