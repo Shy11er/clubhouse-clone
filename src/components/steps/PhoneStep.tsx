@@ -11,6 +11,7 @@ function PhoneStep() {
           Get your username!
         </button>
       </div>
+      
     </div>
   );
 }

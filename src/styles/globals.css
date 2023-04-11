@@ -23,11 +23,6 @@ body {
   background: #ffedcb;
 }
 
-i.hand:hover {
-  animation: tilt-shaking 4.72s ease infinite;
-  transform-origin: 50% 50%;
-}
-
 @keyframes tilt-shaking {
   0% {
     transform: rotate(0deg);
