@@ -21,7 +21,7 @@ const steps: Dict<React.FC<any>> = {
 };
 
 export default function Home() {
-  const [step, setStep] = React.useState<number>(4);
+  const [step, setStep] = React.useState<number>(5);
 
   const Step = steps[step];
 

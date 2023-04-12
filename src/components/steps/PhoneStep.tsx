@@ -27,7 +27,7 @@ const PhoneStep: React.FC = () => {
       </div>
       <div className="bg-white rounded-xl max-w-96 py-14 mx-8 p-8 flex flex-col items-center text-center shadow-md">
         <div className="mb-6 flex items-center flex-col mx-12 relative">
-          <i className="absolute left-2 top-2">🇷🇺</i>
+          <i className="absolute left-2 top-[9px] ">🇷🇺</i>
           <PatternFormat
             format="+8 (###) ###-##-##"
             // allowEmptyFormatting
@@ -35,7 +35,7 @@ const PhoneStep: React.FC = () => {
             placeholder="+7 (989) 999-44-44"
             onChange={(e) => onNumberChange(e.target.value)}
             mask="_"
-            className="px-8 py-2 border rounded-2xl placeholder:text-gray-400 max-w-[250px]"
+            className="px-8 py-2 border rounded-2xl placeholder:text-gray-400 text-xl max-w-[250px] focus:outline-none"
           />
         </div>
         <Button
