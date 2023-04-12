@@ -3,6 +3,7 @@ import PhoneStep from "@/components/steps/PhoneStep";
 import Register from "@/components/steps/Register";
 import TwitterStep from "@/components/steps/TwitterStep";
 import CongratStep from "@/components/steps/CongratStep";
+import PhoneActivate from "@/components/steps/PhoneActivate";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <Register />
       <TwitterStep />
       <CongratStep />
-      <PhoneStep /> 
+      <PhoneStep />
+      <PhoneActivate /> 
 
       <style global jsx>{`
         html,
