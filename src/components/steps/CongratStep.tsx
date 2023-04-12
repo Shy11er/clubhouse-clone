@@ -1,5 +1,7 @@
 import React, { ChangeEvent } from "react";
 import Avatar from "../Avatar";
+import Button from "../Button";
+import { FaArrowRight } from "react-icons/fa";
 
 type Props = {
   fullName: string;
@@ -9,19 +11,22 @@ const defaultProps = {
   fullName: "Daniel Brekker",
 };
 
-export default function CongratStep({ fullName }: Props) {
-  const [file, setFile] = React.useState<File>();
+const CongratStep: React.FC<Props> = ({ fullName }) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [url, setUrl] = React.useState("");
 
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
+  const handleChangeImage = (e: Event): void => {
+    if (e.target) {
+      const file = (e.target as any).files[0];
+      setUrl(URL.createObjectURL(file));
     }
   };
 
-  console.log(file);
-  const handleUpload = () => {
-    if (!file) return;
-  };
+  React.useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.addEventListener("change", handleChangeImage);
+    }
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
@@ -31,28 +36,33 @@ export default function CongratStep({ fullName }: Props) {
         <p>How's this photo?</p>
       </div>
       <div className="bg-white rounded-xl max-w-96 sm:w-96 py-14 mx-8 px-8 flex flex-col items-center text-center shadow-md">
-        <div className="mb-12 flex items-center flex-col mx-12">
-          <Avatar fullName={fullName} />
+        <div className="mb-6 flex items-center flex-col mx-12">
+          <Avatar fullName={fullName} imageUrl={url} />
           <form method="post">
             <label className="relative inline-block">
               <input
                 type="file"
-                name="file"
+                accept="image/png, image/gif, image/jpeg"
+                ref={inputRef}
                 className="absolute z-[-1] opacity-0 block w-0 h-0"
-                onChange={handleChangeFile}
+                // onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeImage(e)}
               />
               <span className="relative inline-block cursor-pointer outline-none text-cyan-700 text-xl hover:text-black">
-                Set avatar
+                Сhoose avatar
               </span>
             </label>
           </form>
         </div>
-        <button className="rounded-xl bg-[#1DA1F2] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700">
-          Next
-        </button>
+        <Button
+          isDisabled={false}
+          title="Next"
+          img={<FaArrowRight className="mx-2" />}
+        />
       </div>
     </div>
   );
-}
+};
 
 CongratStep.defaultProps = defaultProps;
+
+export default CongratStep;
