@@ -30,8 +30,9 @@ const PhoneStep: React.FC = () => {
           <i className="absolute left-2 top-2">🇷🇺</i>
           <PatternFormat
             format="+8 (###) ###-##-##"
-            allowEmptyFormatting
+            // allowEmptyFormatting
             value={phoneNum}
+            placeholder="+7 (989) 999-44-44"
             onChange={(e) => onNumberChange(e.target.value)}
             mask="_"
             className="px-8 py-2 border rounded-2xl placeholder:text-gray-400 max-w-[250px]"
