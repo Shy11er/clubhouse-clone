@@ -1,4 +1,4 @@
-import React, { ReactComponentElement } from "react";
+import React from "react";
 import Welcome from "../components/steps/Welcome";
 import PhoneStep from "@/components/steps/PhoneStep";
 import Register from "@/components/steps/Register";
@@ -11,6 +11,11 @@ interface Dict<T> {
   [Key: number]: T;
 }
 
+type MainContextType = {
+  onNextStep: () => void;
+  step: number;
+};
+
 const steps: Dict<React.FC<any>> = {
   0: Welcome,
   1: Register,
@@ -20,29 +25,28 @@ const steps: Dict<React.FC<any>> = {
   5: PhoneActivate,
 };
 
+export const stepContext = React.createContext<MainContextType>({});
+
 export default function Home() {
-  const [step, setStep] = React.useState<number>(5);
+  const [step, setStep] = React.useState<number>(0);
 
   const Step = steps[step];
 
   return (
     <div>
-      <Step />
-      {/* <Register />
-      <TwitterStep />
-      <CongratStep />
-      <PhoneStep />
-      <PhoneActivate />  */}
+      <stepContext.Provider value={{ step, setStep }}>
+        <Step onNextStep={(step: number) => step++} />
 
-      <style global jsx>{`
-        html,
-        body,
-        body > div:first-child,
-        div#__next,
-        div#__next > div {
-          height: 100%;
-        }
-      `}</style>
+        <style global jsx>{`
+          html,
+          body,
+          body > div:first-child,
+          div#__next,
+          div#__next > div {
+            height: 100%;
+          }
+        `}</style>
+      </stepContext.Provider>
     </div>
   );
 }

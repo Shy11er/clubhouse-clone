@@ -1,9 +1,10 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import Button from "../Button";
+import { stepContext } from "@/pages";
 
 const Welcome: React.FC = () => {
-  const submitRegister = () => {};
+  const setStep = React.useContext(stepContext);
 
   return (
     <div className="w-full h-full flex justify-center items-center">
@@ -17,8 +18,12 @@ const Welcome: React.FC = () => {
           rerum ratione nulla voluptatibus dignissimos tenetur perferendis!
           Porro nulla quam inventore cupiditate ipsa.
         </p>
-        <Button isDisabled={false} title="Get your username!" img={<FaArrowRight className="mx-2"/>}/>
-        
+        <Button
+          isDisabled={false}
+          title="Get your username!"
+          img={<FaArrowRight className="mx-2" />}
+          onClick={() => setStep(1)}
+        />
       </div>
     </div>
   );

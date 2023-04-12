@@ -1,3 +1,5 @@
+import axios from "../../../core/axios";
+import { useRouter } from "next/router";
 import React from "react";
 import { TbNumbers } from "react-icons/tb";
 import Button from "../Button";
@@ -7,7 +9,7 @@ const nul: number[] = [0, 1, 2, 3];
 const PhoneActivate: React.FC = () => {
   const [codes, setCodes] = React.useState(["", "", "", ""]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
+  const route = useRouter();
   let codeNum = Number(codes.join(""));
   const disabled = codeNum >= 1000;
 
@@ -25,8 +27,17 @@ const PhoneActivate: React.FC = () => {
     }
   };
 
-  const onSubm = () => {
+  const onSubm = async () => {
     setIsLoading(true);
+    try {
+      await axios.get("/todos");
+      route.push("/rooms")
+    } catch (e) {
+      alert("Connection failed");
+      console.error(e);
+    }
+    setIsLoading(false);
+    
   };
 
   const cell = (v: any) => {
