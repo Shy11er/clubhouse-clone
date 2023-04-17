@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { setStep } from "@/redux/slice/main";
 
-import Button from "../Button";
+import StepButton from "../StepButton";
 
 const PhoneStep: React.FC = () => {
   const [phoneNum, setPhoneNum] = React.useState("");
@@ -47,7 +47,7 @@ const PhoneStep: React.FC = () => {
             className="px-8 py-2 border rounded-2xl placeholder:text-gray-400 text-xl max-w-[250px] focus:outline-none"
           />
         </div>
-        <Button
+        <StepButton
           isDisabled={isDisabled}
           title="Next"
           img={<FaArrowRight className="mx-2" />}

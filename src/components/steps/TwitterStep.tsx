@@ -4,12 +4,10 @@ import { AiOutlineTwitter } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 
 import Avatar from "../Avatar";
-import Button from "../Button";
-interface Props {
-  fullName: string;
-}
+import StepButton from "../StepButton";
 
-const TwitterStep: React.FC<Props> = ({ fullName }) => {
+
+const TwitterStep: React.FC = () => {
   const dp = useDispatch();
   const { name } = useSelector(stepSelector);
 
@@ -31,7 +29,7 @@ const TwitterStep: React.FC<Props> = ({ fullName }) => {
             <Avatar fullName={name} isUserAvatar={false} />
             <h1 className="text-2xl font-medium">{name}</h1>
           </div>
-          <Button
+          <StepButton
             isDisabled={false}
             onClick={() => onNextStep()}
             title="Import from Twitter"

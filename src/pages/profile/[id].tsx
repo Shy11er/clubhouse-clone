@@ -6,5 +6,10 @@ export default function Profile() {
   const router = useRouter();
   const url = router.query;
 
-  return <NavBar />;
+  return (
+    <>
+      <NavBar />
+      <div className="p-20 bg-black w-full h-full"></div>
+    </>
+  );
 }

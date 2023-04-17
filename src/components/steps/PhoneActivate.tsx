@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { TbNumbers } from "react-icons/tb";
 
-import Button from "../Button";
+import StepButton from "../StepButton";
 
 import axios from "../../../core/axios";
 
@@ -72,7 +72,7 @@ const PhoneActivate: React.FC = () => {
               <div className="mb-12 flex items-center flex-row flex-wrap justify-center">
                 {nul.map((el: number) => cell(el))}
               </div>
-              <Button
+              <StepButton
                 isDisabled={!disabled}
                 title="Next"
                 onClick={() => onSubm()}

@@ -2,7 +2,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
-import Button from "../Button";
+import StepButton from "../StepButton";
 
 import { setName, setStep } from "@/redux/slice/main";
 
@@ -35,7 +35,7 @@ const Register: React.FC = () => {
           value={userName}
           onChange={(e) => nameChange(e)}
         />
-        <Button
+        <StepButton
           isDisabled={userName.length <= 3}
           title="Next"
           img={<FaArrowRight className="mx-2" />}

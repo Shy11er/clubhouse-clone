@@ -3,7 +3,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 
-import Button from "../Button";
+import StepButton from "../StepButton";
 
 const Welcome: React.FC = () => {
   const dp = useDispatch();
@@ -24,7 +24,7 @@ const Welcome: React.FC = () => {
           rerum ratione nulla voluptatibus dignissimos tenetur perferendis!
           Porro nulla quam inventore cupiditate ipsa.
         </p>
-        <Button
+        <StepButton
           isDisabled={false}
           title="Get your username!"
           img={<FaArrowRight className="mx-2" />}

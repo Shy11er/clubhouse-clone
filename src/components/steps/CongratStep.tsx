@@ -1,9 +1,11 @@
-import React, { ChangeEvent } from "react";
-import Avatar from "../Avatar";
-import Button from "../Button";
+import React from "react";
+
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setStep, stepSelector } from "@/redux/slice/main";
+
+import Avatar from "../Avatar";
+import StepButton from "../StepButton";
 
 type Props = {
   fullName: string;
@@ -61,7 +63,7 @@ const CongratStep: React.FC<Props> = ({ fullName }) => {
             </label>
           </form>
         </div>
-        <Button
+        <StepButton
           onClick={() => onNextStep()}
           isDisabled={false}
           title="Next"
