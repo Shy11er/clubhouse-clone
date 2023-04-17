@@ -1,17 +1,23 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../Button";
 
-import { setStep } from "@/redux/slice/main";
+import { setName, setStep, stepSelector } from "@/redux/slice/main";
 
 const Register: React.FC = () => {
-  const [name, setName] = React.useState<string>("");
-  
+  const [userName, setUserName] = React.useState<string>("");
+
   const dp = useDispatch();
+
+  const nameChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(ev.target.value);
+  };
+
   const onNextStep = () => {
     dp(setStep());
+    dp(setName(userName));
   };
 
   return (
@@ -26,11 +32,11 @@ const Register: React.FC = () => {
           type="text"
           className="px-4 py-2 border rounded-2xl mb-6"
           placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={userName}
+          onChange={(e) => nameChange(e)}
         />
         <Button
-          isDisabled={name.length <= 3}
+          isDisabled={userName.length <= 3}
           title="Next"
           img={<FaArrowRight className="mx-2" />}
           onClick={() => onNextStep()}

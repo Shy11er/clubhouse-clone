@@ -18,11 +18,14 @@ const stepSlice = createSlice({
     setStep(state) {
       state.step++;
     },
+    setName(state, action) {
+      state.name = action.payload;
+    },
   },
 });
 
 export const stepSelector = (state: RootState) => state.stepSlice;
 
-export const { setStep } = stepSlice.actions;
+export const { setStep, setName } = stepSlice.actions;
 
 export default stepSlice.reducer;
