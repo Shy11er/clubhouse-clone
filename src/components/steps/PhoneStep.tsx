@@ -1,11 +1,20 @@
+import { setStep } from "@/redux/slice/main";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import Button from "../Button";
 import { PatternFormat } from "react-number-format";
+import { useDispatch } from "react-redux";
+
+import Button from "../Button";
 
 const PhoneStep: React.FC = () => {
   const [phoneNum, setPhoneNum] = React.useState("");
   const [isDisabled, setIsDisabled] = React.useState(true);
+
+  const dp = useDispatch();
+
+  const onNextStep = () => {
+    dp(setStep());
+  };
 
   const onNumberChange = (inputValue: string) => {
     let s = "";
@@ -42,7 +51,7 @@ const PhoneStep: React.FC = () => {
           isDisabled={isDisabled}
           title="Next"
           img={<FaArrowRight className="mx-2" />}
-          onClick={() => console.log("first")}
+          onClick={() => onNextStep()}
         />
       </div>
     </div>

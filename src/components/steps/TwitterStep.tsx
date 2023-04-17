@@ -1,8 +1,10 @@
+import { setStep } from "@/redux/slice/main";
 import React from "react";
-import Avatar from "../Avatar";
 import { AiOutlineTwitter } from "react-icons/ai";
-import Button from "../Button";
+import { useDispatch } from "react-redux";
 
+import Avatar from "../Avatar";
+import Button from "../Button";
 interface Props {
   fullName: string;
 }
@@ -12,6 +14,12 @@ const defaultProps: Props = {
 };
 
 const TwitterStep: React.FC<Props> = ({ fullName }) => {
+  const dp = useDispatch();
+
+  const onNextStep = () => {
+    dp(setStep());
+  };
+
   return (
     <>
       <div className="w-full h-full flex flex-col justify-center items-center">
@@ -28,6 +36,7 @@ const TwitterStep: React.FC<Props> = ({ fullName }) => {
           </div>
           <Button
             isDisabled={false}
+            onClick={() => onNextStep()}
             title="Import from Twitter"
             img={
               <AiOutlineTwitter

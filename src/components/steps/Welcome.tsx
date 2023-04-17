@@ -1,10 +1,16 @@
+import { setStep } from "@/redux/slice/main";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+
 import Button from "../Button";
-import { stepContext } from "@/pages";
 
 const Welcome: React.FC = () => {
-  const setStep = React.useContext(stepContext);
+  const dp = useDispatch();
+  
+  const onNextStep = () => {
+    dp(setStep());
+  };
 
   return (
     <div className="w-full h-full flex justify-center items-center">
@@ -22,7 +28,7 @@ const Welcome: React.FC = () => {
           isDisabled={false}
           title="Get your username!"
           img={<FaArrowRight className="mx-2" />}
-          onClick={() => setStep(1)}
+          onClick={() => onNextStep()}
         />
       </div>
     </div>

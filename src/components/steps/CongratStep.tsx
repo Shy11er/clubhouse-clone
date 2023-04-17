@@ -2,6 +2,8 @@ import React, { ChangeEvent } from "react";
 import Avatar from "../Avatar";
 import Button from "../Button";
 import { FaArrowRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { setStep } from "@/redux/slice/main";
 
 type Props = {
   fullName: string;
@@ -14,6 +16,12 @@ const defaultProps = {
 const CongratStep: React.FC<Props> = ({ fullName }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [url, setUrl] = React.useState("");
+
+  const dp = useDispatch();
+
+  const onNextStep = () => {
+    dp(setStep());
+  };
 
   const handleChangeImage = (e: Event): void => {
     if (e.target) {
@@ -54,6 +62,7 @@ const CongratStep: React.FC<Props> = ({ fullName }) => {
           </form>
         </div>
         <Button
+          onClick={() => onNextStep()}
           isDisabled={false}
           title="Next"
           img={<FaArrowRight className="mx-2" />}
