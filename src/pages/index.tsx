@@ -1,5 +1,5 @@
 import React from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 
 import Welcome from "../components/steps/Welcome";
 import PhoneStep from "@/components/steps/PhoneStep";
@@ -8,7 +8,6 @@ import TwitterStep from "@/components/steps/TwitterStep";
 import CongratStep from "@/components/steps/CongratStep";
 import PhoneActivate from "@/components/steps/PhoneActivate";
 
-import store from "@/redux/store";
 import { stepSelector } from "@/redux/slice/main";
 
 //! STEPS TYPE != any

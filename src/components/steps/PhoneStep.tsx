@@ -1,8 +1,9 @@
-import { setStep } from "@/redux/slice/main";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { PatternFormat } from "react-number-format";
 import { useDispatch } from "react-redux";
+
+import { setStep } from "@/redux/slice/main";
 
 import Button from "../Button";
 
@@ -39,7 +40,6 @@ const PhoneStep: React.FC = () => {
           <i className="absolute left-2 top-[9px] ">🇷🇺</i>
           <PatternFormat
             format="+8 (###) ###-##-##"
-            // allowEmptyFormatting
             value={phoneNum}
             placeholder="+7 (989) 999-44-44"
             onChange={(e) => onNumberChange(e.target.value)}

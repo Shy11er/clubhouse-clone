@@ -1,10 +1,10 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Button from "../Button";
 
-import { setName, setStep, stepSelector } from "@/redux/slice/main";
+import { setName, setStep } from "@/redux/slice/main";
 
 const Register: React.FC = () => {
   const [userName, setUserName] = React.useState<string>("");
