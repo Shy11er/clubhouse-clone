@@ -28,7 +28,7 @@ const TwitterStep: React.FC<Props> = ({ fullName }) => {
         </div>
         <div className="bg-white rounded-xl max-w-96 sm:w-96 py-14 mx-8 px-8 flex flex-col items-center text-center shadow-md">
           <div className="mb-12 flex items-center flex-col mx-12">
-            <Avatar fullName={name} />
+            <Avatar fullName={name} isUserAvatar={false} />
             <h1 className="text-2xl font-medium">{name}</h1>
           </div>
           <Button
