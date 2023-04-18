@@ -1,19 +1,22 @@
 import React from "react";
 
 type Props = {
-  onClick: () => void;
-  disabled: boolean;
-  className: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  clsName: string;
+  title: string;
 };
 
-const Button: React.FC<Props> = ({ onClick, disabled, className }) => {
+const Button: React.FC<Props> = ({ onClick, disabled, clsName, title }) => {
   return (
     <button
       onClick={onClick}
       type="button"
       disabled={disabled}
-      className={className}
-    ></button>
+      className={clsName}
+    >
+      {title}
+    </button>
   );
 };
 

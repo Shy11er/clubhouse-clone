@@ -1,5 +1,5 @@
 import React from "react";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Welcome from "../components/steps/Welcome";
 import PhoneStep from "@/components/steps/PhoneStep";
@@ -9,13 +9,11 @@ import CongratStep from "@/components/steps/CongratStep";
 import PhoneActivate from "@/components/steps/PhoneActivate";
 
 import { stepSelector } from "@/redux/slice/main";
-
-//! STEPS TYPE != any
 interface Dict<T> {
   [Key: number]: T;
 }
 
-const steps: Dict<React.FC<any>> = {
+const steps: Dict<React.FC<any>> = { //! STEPS TYPE != any
   0: Welcome,
   1: Register,
   2: TwitterStep,
@@ -31,15 +29,6 @@ export default function Home() {
   return (
     <div>
       <Step />
-      <style global jsx>{`
-        html,
-        body,
-        body > div:first-child,
-        div#__next,
-        div#__next > div {
-          height: 100%;
-        }
-      `}</style>
     </div>
   );
 }

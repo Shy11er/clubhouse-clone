@@ -7,7 +7,7 @@ type Props = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button: React.FC<Props> = ({ isDisabled, title, img, onClick }) => {
+const StepButton: React.FC<Props> = ({ isDisabled, title, img, onClick }) => {
   return (
     <button
       disabled={isDisabled}
@@ -24,4 +24,4 @@ const Button: React.FC<Props> = ({ isDisabled, title, img, onClick }) => {
   );
 };
 
-export default Button;
+export default StepButton;

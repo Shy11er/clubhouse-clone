@@ -5,7 +5,7 @@ import Avatar from "./Avatar";
 
 const NavBar = () => {
   return (
-    <div className="w-full h-24 flex items-center justify-between px-2">
+    <div className="w-full h-24 flex items-center justify-between px-20">
       <Link legacyBehavior href="/">
         <a className="text-3xl text-black flex-row flex items-center">
           {" "}
