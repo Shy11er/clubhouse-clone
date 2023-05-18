@@ -7,15 +7,7 @@ import { setStep, stepSelector } from "@/redux/slice/main";
 import Avatar from "../Avatar";
 import StepButton from "../StepButton";
 
-type Props = {
-  fullName: string;
-};
-
-const defaultProps = {
-  fullName: "Daniel Brekker",
-};
-
-const CongratStep: React.FC<Props> = ({ fullName }) => {
+const CongratStep: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [url, setUrl] = React.useState("");
 
@@ -29,7 +21,8 @@ const CongratStep: React.FC<Props> = ({ fullName }) => {
   const handleChangeImage = (e: Event): void => {
     if (e.target) {
       const file = (e.target as any).files[0];
-      setUrl(URL.createObjectURL(file));
+      const imageUrl = URL.createObjectURL(file);
+      setUrl(imageUrl);
     }
   };
 
@@ -73,7 +66,5 @@ const CongratStep: React.FC<Props> = ({ fullName }) => {
     </div>
   );
 };
-
-CongratStep.defaultProps = defaultProps;
 
 export default CongratStep;
