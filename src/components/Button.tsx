@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({ onClick, disabled, clsName, title }) => {
       disabled={disabled}
       className={
         clsName ||
-        "tracking-wide py-2 px-4 bg-green-500 text-white rounded-3xl text-xl"
+        "tracking-wide px-4 h-12 bg-green-500 text-white rounded-3xl text-xl hover:scale-105 ease-linear duration-75"
       }
     >
       {title}

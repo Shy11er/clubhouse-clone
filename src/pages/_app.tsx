@@ -13,7 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
         body,
         body > div:first-child,
         div#__next,
-        
+        div#__next > div {
+          height: 100%;
+        }
       `}</style>
     </Provider>
   );
