@@ -7,7 +7,7 @@ const NavBar: React.FC = () => {
   return (
     <div className="w-full h-24 flex items-center justify-between px-20 relative top-0 left-0 divide-y-reverse border-b-2 border-[#fbe8c3]">
       <Link legacyBehavior href="/rooms">
-        <a className="text-3xl text-black flex-row flex items-center">
+        <a className="text-3xl font-medium text-black flex-row flex items-center">
           {" "}
           <p>👋</p>
           <h1 className="mx-2">Clubhouse</h1>

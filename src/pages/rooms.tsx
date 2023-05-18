@@ -6,9 +6,10 @@ type Props = {};
 
 const Rooms: React.FC<Props> = ({}) => {
   return (
-    <div className="w-full h-full flex flex-col">
+    <>
       <NavBar />
-    </div>
+      <div className="">Все</div>
+    </>
   );
 };
 
