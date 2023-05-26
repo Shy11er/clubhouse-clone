@@ -11,7 +11,7 @@ const Profile: React.FC = () => {
   const { id } = router.query;
 
   return (
-    <>
+    <div className="h-full w-full">
       <NavBar />
       <div className="px-20 py-10 w-full flex flex-col">
         <Link
@@ -39,7 +39,7 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

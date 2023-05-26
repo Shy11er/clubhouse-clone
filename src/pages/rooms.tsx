@@ -14,7 +14,7 @@ const Rooms: React.FC<Props> = ({}) => {
         <h1>All conversations</h1>
         <Button title="+Start room" />
       </div>
-      <div className="w-full px-10">
+      <div className="w-full h-full px-20">
         <Conversation />
       </div>
     </div>

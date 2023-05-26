@@ -13,14 +13,14 @@ type Props = {
 
 const members: string[] = ["ann", "casey", "jack"];
 
-const Room: React.FC<Props> = ({
+const RoomCard: React.FC<Props> = ({
   title,
   memberList,
   memberAmount,
   commentAmount,
 }) => {
   return (
-    <div className="shadowB w-80 h-48 bg-[#f4f4f0] flex flex-col p-4 m-3 rounded-3xl cursor-pointer hover:scale-105 ease-linear duration-75">
+    <div className="shadowB w-80 h-48 bg-[#f4f4f0] flex flex-col justify-start pl-6 pr-12 py-6 rounded-3xl cursor-pointer hover:scale-105 ease-linear duration-75">
       <h1 className="text-2xl font-semibold mb-2">{title}</h1>
       <div className="w-full h-full flex flex-row">
         <div className="avatars flex flex-col justify-start relative w-[82px] h-[84px] mr-2 border-2 border-white-400 rounded-3xl">
@@ -76,4 +76,4 @@ const Room: React.FC<Props> = ({
   );
 };
 
-export default Room;
+export default RoomCard;

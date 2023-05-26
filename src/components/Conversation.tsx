@@ -1,18 +1,25 @@
+import Link from "next/link";
 import React from "react";
 
-import Room from "./Room";
+import RoomCard from "./RoomCard";
 
 const Conversation: React.FC = () => {
   return (
-    <div className="w-full rounded-3xl mt-8 flex flex-wrap justify-start content-start items-start">
-      {[...Array(9)].map((obj, index) => (
-        <Room
-          title="Why so serious?"
-          memberAmount={86}
-          memberList={["1", "2", "3"]}
-          commentAmount={4}
-          key={index}
-        />
+    <div className="w-full rounded-3xl mt-8 grid grid-cols-4 gap-y-4 gap-x-2">
+      {[...Array(10)].map((obj, index) => (
+        <>
+          <Link legacyBehavior href={`/rooms/${index}`}>
+            <a className="h-min w-min">
+              <RoomCard
+                title="Why so serious?"
+                memberAmount={86}
+                memberList={["1", "2", "3"]}
+                commentAmount={4}
+                key={index}
+              />
+            </a>
+          </Link>
+        </>
       ))}
     </div>
   );

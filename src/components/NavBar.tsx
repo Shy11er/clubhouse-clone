@@ -6,8 +6,8 @@ import Avatar from "./Avatar";
 const NavBar: React.FC = () => {
   return (
     <div
-      style={{ height: "96px !important" }}
-      className="w-full flex items-center justify-between px-20 relative top-0 left-0 divide-y-reverse border-b-2 border-[#e3e1d5]"
+      // style={{ height: "96px !important" }}
+      className="h-24 w-full flex items-center justify-between px-20 relative top-0 left-0 divide-y-reverse border-b-2 border-[#e3e1d5]"
     >
       <Link legacyBehavior href="/rooms">
         <a className="text-3xl font-medium text-black flex-row flex items-center">
