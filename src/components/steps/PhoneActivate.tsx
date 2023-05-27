@@ -33,7 +33,6 @@ const PhoneActivate: React.FC = () => {
   const onSubm = async () => {
     setIsLoading(true);
     try {
-      await axios.get("/todos");
       route.push("/rooms");
     } catch (e) {
       alert("Connection failed");
