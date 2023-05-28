@@ -11,7 +11,6 @@ const NavBar: React.FC = () => {
     >
       <Link legacyBehavior href="/rooms">
         <a className="text-3xl font-medium text-black flex-row flex items-center">
-          {" "}
           <p>👋</p>
           <h1 className="mx-2">Clubhouse</h1>
         </a>

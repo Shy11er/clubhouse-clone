@@ -13,7 +13,7 @@ interface Dict<T> {
   [Key: number]: T;
 }
 
-const steps: Dict<React.FC<any>> = { //! STEPS TYPE != any
+const steps: Dict<React.FC> = { //! STEPS TYPE != any
   0: Welcome,
   1: Register,
   2: TwitterStep,
