@@ -20,6 +20,7 @@
     "dotenv": "^16.0.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "express-session": "^1.17.3",
     "mysql2": "^3.3.3",
     "next": "13.3.0",
     "passport": "^0.6.0",
