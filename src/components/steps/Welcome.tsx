@@ -1,13 +1,13 @@
-import { setStep } from "@/redux/slice/main";
 import React from "react";
+import { setStep } from "@/redux/slice/main";
 import { FaArrowRight } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import StepButton from "../StepButton";
 
 const Welcome: React.FC = () => {
   const dp = useDispatch();
-  
+
   const onNextStep = () => {
     dp(setStep());
   };

@@ -31,7 +31,7 @@ app.get(
     res.send(
       `<script>window.opener.postMessage("${JSON.stringify(
         req.user
-      )}", "*")</script>`
+      )}", "*");window.close();</script>`
     );
   }
 );

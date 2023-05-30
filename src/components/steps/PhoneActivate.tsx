@@ -4,8 +4,6 @@ import { TbNumbers } from "react-icons/tb";
 
 import StepButton from "../StepButton";
 
-import axios from "../../../core/axios";
-
 const nul: number[] = [0, 1, 2, 3];
 
 const PhoneActivate: React.FC = () => {
