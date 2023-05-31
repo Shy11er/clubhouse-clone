@@ -8,6 +8,7 @@ dotenv.config({
   path: "/server/.env",
 });
 
+import Code from "../models/code";
 import "./cors/db";
 import { passport } from "./cors/passport";
 
@@ -36,7 +37,18 @@ app.use("/upload", express.static("uploads"));
 app.use(passport.initialize());
 
 app.post("/upload", uploader.single("photo"), (req, res) => {
-  res.json(req.file);
+  res.json({ url: `/avatars/${req.file.filename}` });
+});
+app.post("/auth/phone", (req, res) => {
+  const phone = req.body.phone;
+  const userId = req.user.id;
+
+  if (phone) {
+    const code = Code.create({
+      code: Math.floor(Math.random() * (9999 - 1001)) - 1000,
+      user_id: userId,
+    });
+  }
 });
 
 app.get("/auth/github", passport.authenticate("github"));

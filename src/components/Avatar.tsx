@@ -47,7 +47,7 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
           width="600"
           height="604"
           alt="logo"
-          className="w-32 h-32 rounded-full border-2"
+          className={`w-32 h-32 rounded-full border-2`}
         />
       ) : (
         <div

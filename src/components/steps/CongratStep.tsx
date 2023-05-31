@@ -8,7 +8,7 @@ import Avatar from "../Avatar";
 import StepButton from "../StepButton";
 import { Axios } from "../../../core/axios";
 
-const uploadFile = async (file: File) => {
+const uploadFile = async (file: File): Promise<{ url: string }> => {
   const formData = new FormData();
 
   formData.append("photo", file);
@@ -22,26 +22,28 @@ const uploadFile = async (file: File) => {
 };
 
 const CongratStep: React.FC = () => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const { avatarUrl } = useSelector(stepSelector);
-  const [url, setUrl] = React.useState(avatarUrl);
-
-  const { name } = useSelector(stepSelector);
+  const { avatarUrl, name } = useSelector(stepSelector);
   const dp = useDispatch();
+  
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [url, setUrl] = React.useState(avatarUrl);
 
   const onNextStep = () => {
     dp(setStep(4));
   };
 
   const handleChangeImage = async (e: Event) => {
-    const file = (e.target as HTMLInputElement).files[0];
+    const target = e.target as HTMLInputElement;
+    const file = target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       dp(setAvatar(imageUrl));
       setUrl(imageUrl);
 
       const data = await uploadFile(file);
-      console.log(data);
+      dp(setAvatar(data.url));
+      setUrl(data.url);
+      target.value = "";
     }
   };
 
