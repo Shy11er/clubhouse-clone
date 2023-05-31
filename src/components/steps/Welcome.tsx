@@ -9,7 +9,7 @@ const Welcome: React.FC = () => {
   const dp = useDispatch();
 
   const onNextStep = () => {
-    dp(setStep());
+    dp(setStep(1));
   };
 
   return (

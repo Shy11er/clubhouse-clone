@@ -10,13 +10,14 @@ type Props = {
   isUserAvatar: boolean;
 };
 
-const Avatar: React.FC<Props> = ({ fullName, imageUrl, isUserAvatar }) => {
+const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
   const spl = fullName
     .split(" ")
     .map((el) => el[0].toUpperCase())
     .join("");
 
   if (isUserAvatar) {
+    imageUrl = "1";
     return (
       <>
         {imageUrl !== "" ? (
@@ -40,7 +41,7 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl, isUserAvatar }) => {
 
   return (
     <>
-      {imageUrl ? (
+      {imageUrl !== "" ? (
         <Image
           src={imageUrl}
           width="600"

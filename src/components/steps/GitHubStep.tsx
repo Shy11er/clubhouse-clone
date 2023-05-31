@@ -1,4 +1,4 @@
-import { setStep, stepSelector } from "@/redux/slice/main";
+import { setStep, stepSelector, setName, setAvatar } from "@/redux/slice/main";
 import React from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,26 +12,29 @@ const GitHubStep: React.FC = () => {
 
   const onClickAuth = () => {
     const win = window.open(
-      "http://localhost:3333/auth/github/callback",
+      "http://localhost:3333/auth/github/",
       "Auth",
-      "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=500"
+      "toolbar=no,location=no,status=no,menubar=no,resizable=yes,width=500,height=500"
     );
 
     const timer = setInterval(() => {
       if (win.closed) {
         clearInterval(timer);
-        onNextStep();
+        // onNextStep();
       }
-    }, 100);
+    }, 1000);
   };
 
-  const onNextStep = () => {
-    dp(setStep());
+  const onNextStep = (data) => {
+    dp(setStep(data));
   };
 
   React.useEffect(() => {
     window.addEventListener("message", (data) => {
-      console.log(data);
+      const obj = JSON.parse(data.data);
+      dp(setName(obj.username));
+      dp(setAvatar(obj.imageUrl));
+      onNextStep(2);
     });
   }, []);
 
@@ -51,7 +54,7 @@ const GitHubStep: React.FC = () => {
           </div>
           <StepButton
             isDisabled={false}
-            onClick={() => onClickAuth()}
+            onClick={onClickAuth}
             title="Import from GitHub"
             img={
               <AiFillGithub
@@ -60,7 +63,7 @@ const GitHubStep: React.FC = () => {
             }
           />
           <p
-            onClick={onNextStep}
+            onClick={() => onNextStep(2)}
             className="mt-1 text-cyan-800 hover:text-cyan-600 cursor-pointer"
           >
             Continue without github

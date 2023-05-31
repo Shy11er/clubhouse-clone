@@ -20,6 +20,7 @@ app.use(
     cookie: { secure: true },
   })
 );
+
 app.use(passport.initialize());
 
 app.get("/auth/github", passport.authenticate("github"));
@@ -29,13 +30,14 @@ app.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   (req: Request, res: Response) => {
     res.send(
-      `<script>window.opener.postMessage("${JSON.stringify(
+      `"<script>window.opener.postMessage('${JSON.stringify(
         req.user
-      )}", "*");window.close();</script>`
+      )}', '*');window.close();</script>"`
     );
+    // res.json(req.user);
   }
 );
 
-app.listen(PORT || 3333, async () => {
-  console.log("runned");
+app.listen(PORT || 3333, () => {
+  console.log(`server runned in port: ${PORT}`);
 });

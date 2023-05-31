@@ -1,13 +1,14 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import StepButton from "../StepButton";
 
-import { setName, setStep } from "@/redux/slice/main";
+import { setName, setStep, stepSelector } from "@/redux/slice/main";
 
 const Register: React.FC = () => {
-  const [userName, setUserName] = React.useState<string>("");
+  const { name } = useSelector(stepSelector);
+  const [userName, setUserName] = React.useState<string>(name);
 
   const dp = useDispatch();
 
@@ -16,7 +17,7 @@ const Register: React.FC = () => {
   };
 
   const onNextStep = () => {
-    dp(setStep());
+    dp(setStep(3));
     dp(setName(userName));
   };
 

@@ -2,26 +2,28 @@ import React from "react";
 
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setStep, stepSelector } from "@/redux/slice/main";
+import { setAvatar, setStep, stepSelector } from "@/redux/slice/main";
 
 import Avatar from "../Avatar";
 import StepButton from "../StepButton";
 
 const CongratStep: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [url, setUrl] = React.useState("");
+  const { avatarUrl } = useSelector(stepSelector);
+  const [url, setUrl] = React.useState(avatarUrl);
 
   const { name } = useSelector(stepSelector);
   const dp = useDispatch();
 
   const onNextStep = () => {
-    dp(setStep());
+    dp(setStep(4));
   };
 
   const handleChangeImage = (e: Event): void => {
     if (e.target) {
       const file = (e.target as any).files[0];
       const imageUrl = URL.createObjectURL(file);
+      dp(setAvatar(imageUrl));
       setUrl(imageUrl);
     }
   };

@@ -3,9 +3,8 @@ import { Strategy as GithubStrategy } from "passport-github";
 import dotenv from "dotenv";
 import { User } from "../../models";
 
-console.log(User);
-
 dotenv.config({ path: "./server/.env" });
+
 passport.use(
   "github",
   new GithubStrategy(

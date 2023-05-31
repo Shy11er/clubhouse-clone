@@ -14,7 +14,7 @@ const PhoneStep: React.FC = () => {
   const dp = useDispatch();
 
   const onNextStep = () => {
-    dp(setStep());
+    dp(setStep(5));
   };
 
   const onNumberChange = (inputValue: string) => {

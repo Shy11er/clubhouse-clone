@@ -1,9 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import { stepSelector } from "@/redux/slice/main";
 
 import Avatar from "./Avatar";
+import { useSelector } from "react-redux";
 
 const NavBar: React.FC = () => {
+  const { name } = useSelector(stepSelector);
+
   return (
     <div
       // style={{ height: "96px !important" }}
@@ -18,8 +22,8 @@ const NavBar: React.FC = () => {
       <Link legacyBehavior href={`/profile/123`}>
         <a>
           <div className="flex-row flex items-center justify-center text-center">
-            <h1 className="text-2xl mx-2">Daniel Brekker</h1>
-            <Avatar fullName="Daniel" isUserAvatar />
+            <h1 className="text-2xl mx-2">{name}</h1>
+            <Avatar fullName={name} isUserAvatar />
           </div>
         </a>
       </Link>
