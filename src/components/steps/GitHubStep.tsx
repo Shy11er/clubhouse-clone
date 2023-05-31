@@ -8,7 +8,6 @@ import StepButton from "../StepButton";
 
 const GitHubStep: React.FC = () => {
   const dp = useDispatch();
-  // const { name } = useSelector(stepSelector);
 
   const onClickAuth = () => {
     const win = window.open(
@@ -20,7 +19,6 @@ const GitHubStep: React.FC = () => {
     const timer = setInterval(() => {
       if (win.closed) {
         clearInterval(timer);
-        // onNextStep();
       }
     }, 1000);
   };
@@ -40,7 +38,7 @@ const GitHubStep: React.FC = () => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col justify-center items-center">
+      <div className="w-full h-full inline-flex flex-col justify-center items-center">
         <div className="flex flex-col text-center mb-8 items-center mx-4">
           <AiFillGithub className="w-14 h-14 fill-[#160d0d]" />
           <h1 className="text-xl font-bold">

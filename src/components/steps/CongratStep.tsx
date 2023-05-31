@@ -6,6 +6,20 @@ import { setAvatar, setStep, stepSelector } from "@/redux/slice/main";
 
 import Avatar from "../Avatar";
 import StepButton from "../StepButton";
+import { Axios } from "../../../core/axios";
+
+const uploadFile = async (file: File) => {
+  const formData = new FormData();
+
+  formData.append("photo", file);
+  const { data } = await Axios.post("/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return data;
+};
 
 const CongratStep: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -19,12 +33,15 @@ const CongratStep: React.FC = () => {
     dp(setStep(4));
   };
 
-  const handleChangeImage = (e: Event): void => {
-    if (e.target) {
-      const file = (e.target as any).files[0];
+  const handleChangeImage = async (e: Event) => {
+    const file = (e.target as HTMLInputElement).files[0];
+    if (file) {
       const imageUrl = URL.createObjectURL(file);
       dp(setAvatar(imageUrl));
       setUrl(imageUrl);
+
+      const data = await uploadFile(file);
+      console.log(data);
     }
   };
 

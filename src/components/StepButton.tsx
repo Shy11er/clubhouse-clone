@@ -14,8 +14,8 @@ const StepButton: React.FC<Props> = ({ isDisabled, title, img, onClick }) => {
       onClick={onClick}
       className={
         isDisabled
-          ? "disabled px-4 py-2"
-          : "rounded-xl bg-[#0d1117] px-4 py-2 text-gray-100 font-bold text-lg flex items-center hover:drop-shadow-md hover:shadow-indigo-700"
+          ? "disabled px-4 py-3"
+          : "rounded-full bg-[#0d1117] px-6 py-3 text-gray-100 font-bold text-lg flex items-center hover:scale-105"
       }
     >
       {title}

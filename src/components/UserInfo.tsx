@@ -1,7 +1,5 @@
-import { stepSelector } from "@/redux/slice/main";
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useSelector } from "react-redux";
 
 import Avatar from "./Avatar";
 import Button from "./Button";
@@ -19,15 +17,14 @@ const UserInfo: React.FC<Props> = ({
   avatarUrl,
   about,
 }) => {
-  const { name } = useSelector(stepSelector);
-
+  const arr = fullName.split(" ");
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center">
-        <Avatar fullName={name} isUserAvatar={false} imageUrl={avatarUrl} />
+        <Avatar fullName={fullName} isUserAvatar={false} imageUrl={avatarUrl} />
         <div className="flex flex-col mx-6">
           <h1 className="text-2xl font-bold leading-12">{fullName}</h1>
-          <p className="text-xl">{`@${userName.toLowerCase()}`}</p>
+          <p className="text-xl">{`@${arr.at(-1).toLowerCase()}`}</p>
         </div>
         <Button
           clsName="py-1 px-6 text-xl bg-transparent border-2 border-[#4e72c6] text-[#4e72c6] rounded-3xl"
