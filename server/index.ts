@@ -13,7 +13,6 @@ import Code from "../models/code";
 import "./cors/db";
 import { passport } from "./cors/passport";
 import { UserData } from "@/redux/slice/main";
-import { Axios } from "../core/axios";
 
 declare global {
   namespace Express {
@@ -52,8 +51,6 @@ app.post("/auth/sms", passport.authenticate("jwt", { session: false}), async (re
   const phone = req.body.phone;
   const userId = req.user.id;
 
-  const axios = require("axios");
-
   if (!phone) {
     return res.status(400).json({
       message: "Phone number is not defined!",
@@ -88,6 +85,9 @@ app.post("/auth/sms", passport.authenticate("jwt", { session: false}), async (re
   }
 });
 
+app.get("/auth/me", passport.authenticate("jwt", { session: false}), (req, res) => {
+  res.json(req.user);
+})
 app.get("/auth/github", passport.authenticate("github"));
 app.get(
   "/auth/github/callback",

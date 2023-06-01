@@ -56,13 +56,10 @@ passport.use(
           userData = await findUser.toJSON();
         }
 
-        console.log(
-          {
-            ...userData,
-            token: createJwtToken(userData),
-          },
-          "1111"
-        );
+        console.log({
+          ...userData,
+          token: createJwtToken(userData),
+        });
 
         done(null, { ...userData, token: createJwtToken(userData) });
       } catch (error) {

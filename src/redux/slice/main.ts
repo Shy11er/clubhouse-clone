@@ -19,6 +19,7 @@ const initialState: UserData = {
   isActive: 0,
   username: "",
   phone: "",
+  token: "",
   step: 0,
 };
 
@@ -38,12 +39,20 @@ const stepSlice = createSlice({
     setAvatar(state, action) {
       state.avatarUrl = action.payload;
     },
+    setData(state, action) {
+      state.fullname = action.payload.fullname || "";
+      state.username = action.payload.username;
+      state.avatarUrl = action.payload.avatarUrl;
+      state.id = action.payload.id;
+      state.isActive = action.payload.isActive;
+      state.token = action.payload.token;
+    },
   },
 });
 
 export const stepSelector = (state: RootState) => state.stepSlice;
 
-export const { setStep, setUserName, setFullName, setAvatar } =
+export const { setStep, setUserName, setFullName, setAvatar, setData } =
   stepSlice.actions;
 
 export default stepSlice.reducer;

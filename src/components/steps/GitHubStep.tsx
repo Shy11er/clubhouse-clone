@@ -1,9 +1,4 @@
-import {
-  setStep,
-  stepSelector,
-  setUserName,
-  setAvatar,
-} from "@/redux/slice/main";
+import { setStep, UserData, setData } from "@/redux/slice/main";
 import React from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,9 +29,10 @@ const GitHubStep: React.FC = () => {
 
   React.useEffect(() => {
     window.addEventListener("message", (data) => {
-      const obj = JSON.parse(data.data);
-      dp(setUserName(obj.username));
-      dp(setAvatar(obj.imageUrl));
+      const obj: UserData = JSON.parse(data.data);
+      // dp(setUserName(obj.username));
+      // dp(setAvatar(obj.avatarUrl));
+      dp(setData(obj));
       onNextStep(2);
     });
   }, []);
