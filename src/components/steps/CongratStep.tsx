@@ -22,9 +22,9 @@ const uploadFile = async (file: File): Promise<{ url: string }> => {
 };
 
 const CongratStep: React.FC = () => {
-  const { avatarUrl, name } = useSelector(stepSelector);
+  const { avatarUrl, fullname } = useSelector(stepSelector);
   const dp = useDispatch();
-  
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [url, setUrl] = React.useState(avatarUrl);
 
@@ -57,12 +57,12 @@ const CongratStep: React.FC = () => {
     <div className="w-full h-full flex flex-col justify-center items-center">
       <p className="text-4xl mb-2">🎉</p>
       <div className="flex flex-col text-center mb-8 items-center mx-4">
-        <h1 className="text-xl font-bold">Okay, {name}!</h1>
+        <h1 className="text-xl font-bold">Okay, {fullname}!</h1>
         <p>How`s this photo?</p>
       </div>
       <div className="bg-white rounded-xl max-w-96 sm:w-96 py-14 mx-8 px-8 flex flex-col items-center text-center shadow-md">
         <div className="mb-6 flex items-center flex-col mx-12">
-          <Avatar fullName={name} imageUrl={url} isUserAvatar={false} />
+          <Avatar fullName={fullname} imageUrl={url} isUserAvatar={false} />
           <form method="post">
             <label className="relative inline-block">
               <input

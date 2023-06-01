@@ -1,15 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-type initSliceState = {
-  name: string;
+export type UserData = {
+  id: number;
+  fullname: string;
   avatarUrl: string;
-  step: number;
+  isActive: number;
+  username: string;
+  phone: string;
+  token?: string;
+  step?: number;
 };
 
-const initialState: initSliceState = {
-  name: "",
+const initialState: UserData = {
+  id: 0,
+  fullname: "",
   avatarUrl: "",
+  isActive: 0,
+  username: "",
+  phone: "",
   step: 0,
 };
 
@@ -20,8 +29,11 @@ const stepSlice = createSlice({
     setStep(state, action) {
       state.step = action.payload;
     },
-    setName(state, action) {
-      state.name = action.payload;
+    setUserName(state, action) {
+      state.username = action.payload;
+    },
+    setFullName(state, action) {
+      state.fullname = action.payload;
     },
     setAvatar(state, action) {
       state.avatarUrl = action.payload;
@@ -31,6 +43,7 @@ const stepSlice = createSlice({
 
 export const stepSelector = (state: RootState) => state.stepSlice;
 
-export const { setStep, setName, setAvatar } = stepSlice.actions;
+export const { setStep, setUserName, setFullName, setAvatar } =
+  stepSlice.actions;
 
 export default stepSlice.reducer;

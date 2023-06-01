@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 
 import StepButton from "../StepButton";
 
-import { setName, setStep, stepSelector } from "@/redux/slice/main";
+import { setStep, stepSelector, setFullName } from "@/redux/slice/main";
 
 const Register: React.FC = () => {
-  const { name } = useSelector(stepSelector);
-  const [userName, setUserName] = React.useState<string>(name);
+  const { fullname } = useSelector(stepSelector);
+  const [usName, setUsName] = React.useState<string>(fullname);
 
   const dp = useDispatch();
 
   const nameChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(ev.target.value);
+    setUsName(ev.target.value);
   };
 
   const onNextStep = () => {
     dp(setStep(3));
-    dp(setName(userName));
+    dp(setFullName(usName));
   };
 
   return (
@@ -33,11 +33,11 @@ const Register: React.FC = () => {
           type="text"
           className="px-4 py-2 border rounded-2xl mb-6"
           placeholder="Enter your name"
-          value={userName}
+          value={usName}
           onChange={(e) => nameChange(e)}
         />
         <StepButton
-          isDisabled={userName.length <= 3}
+          isDisabled={usName.length <= 3}
           title="Next"
           img={<FaArrowRight className="mx-2" />}
           onClick={() => onNextStep()}

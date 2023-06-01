@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const Profile: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { name } = useSelector(stepSelector);
+  const { fullname } = useSelector(stepSelector);
 
   return (
     <div className="h-full w-full">
@@ -25,7 +25,7 @@ const Profile: React.FC = () => {
           <h1 className="mx-1">Back</h1>
         </Link>
         <div className="flex flex-row justify-between items-start">
-          <UserInfo userName={name} fullName={name} about={"asdasf"} />
+          <UserInfo userName={fullname} fullName={fullname} about={"asdasf"} />
           <div className="bg-white flex flex-row rounded-2xl">
             <div className="p-4 flex flex-col text-center">
               <h1 className="text-3xl font-bold">2</h1>

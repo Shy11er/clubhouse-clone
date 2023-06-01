@@ -33,7 +33,7 @@ const PhoneActivate: React.FC = () => {
     try {
       route.push("/rooms");
     } catch (e) {
-      alert("Connection failed");
+      alert("Connection failed in phone activating step!");
       console.error(e);
     }
     setIsLoading(false);
