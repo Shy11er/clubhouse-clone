@@ -39,8 +39,11 @@ const stepSlice = createSlice({
     setAvatar(state, action) {
       state.avatarUrl = action.payload;
     },
+    setPhone(state, action) {
+      state.phone = action.payload;
+    },
     setData(state, action) {
-      state.fullname = action.payload.fullname || "";
+      state.fullname = action.payload.fullname;
       state.username = action.payload.username;
       state.avatarUrl = action.payload.avatarUrl;
       state.id = action.payload.id;
@@ -52,7 +55,7 @@ const stepSlice = createSlice({
 
 export const stepSelector = (state: RootState) => state.stepSlice;
 
-export const { setStep, setUserName, setFullName, setAvatar, setData } =
+export const { setStep, setUserName, setFullName, setAvatar, setData, setPhone } =
   stepSlice.actions;
 
 export default stepSlice.reducer;

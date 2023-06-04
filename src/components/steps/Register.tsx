@@ -8,7 +8,7 @@ import { setStep, stepSelector, setFullName } from "@/redux/slice/main";
 
 const Register: React.FC = () => {
   const { fullname } = useSelector(stepSelector);
-  const [usName, setUsName] = React.useState<string>(fullname);
+  const [usName, setUsName] = React.useState<string>(fullname || "");
 
   const dp = useDispatch();
 

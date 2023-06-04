@@ -1,7 +1,8 @@
 import { setStep, UserData, setData } from "@/redux/slice/main";
 import React from "react";
 import { AiFillGithub } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 import Avatar from "../Avatar";
 import StepButton from "../StepButton";
@@ -30,6 +31,10 @@ const GitHubStep: React.FC = () => {
   React.useEffect(() => {
     window.addEventListener("message", (data) => {
       const obj: UserData = JSON.parse(data.data);
+      if (Cookies.get("token"))
+        Cookies.remove("token", { path: "/", domain: "localhost" });
+      
+      Cookies.set("token", obj.token);
       // dp(setUserName(obj.username));
       // dp(setAvatar(obj.avatarUrl));
       dp(setData(obj));

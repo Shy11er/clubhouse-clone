@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.post("/upload", uploader.single("photo"), (req, res) => {
   res.json({ url: `/avatars/${req.file.filename}` });
 });
-app.post(
+app.get(
   "/auth/sms",
   passport.authenticate("jwt", { session: false }),
   AuthController.sendSMS

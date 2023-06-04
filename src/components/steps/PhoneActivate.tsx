@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { TbNumbers } from "react-icons/tb";
 
 import StepButton from "../StepButton";
+import { Axios } from "../../../core/axios";
 
 const nul: number[] = [0, 1, 2, 3];
 
@@ -12,7 +13,7 @@ const PhoneActivate: React.FC = () => {
   const route = useRouter();
 
   let codeNum = Number(codes.join(""));
-  const disabled = codeNum >= 1000;
+  let disabled = codeNum >= 1000;
 
   const handleChangeInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const ind = Number(ev.target.getAttribute("id"));
@@ -25,14 +26,21 @@ const PhoneActivate: React.FC = () => {
 
     if (ev.target.nextSibling) {
       (ev.target.nextSibling as HTMLInputElement).focus();
+    } else {
+      setTimeout(() => {
+        onSubm([...codes, value].join(""));
+      }, 1000);
     }
   };
 
-  const onSubm = async () => {
-    setIsLoading(true);
+  const onSubm = async (code: string) => {
     try {
+      console.log(code);
+      setIsLoading(true);
+      await Axios.get(`/auth/sms/activate?code=${code}`);
       route.push("/rooms");
     } catch (e) {
+      setCodes(() => ["", "", "", ""]);
       alert("Connection failed in phone activating step!");
       console.error(e);
     }
@@ -72,7 +80,7 @@ const PhoneActivate: React.FC = () => {
               <StepButton
                 isDisabled={!disabled}
                 title="Next"
-                onClick={() => onSubm()}
+                onClick={() => onSubm(codes.join(""))}
               />
             </div>
           </>

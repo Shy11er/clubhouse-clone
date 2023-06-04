@@ -2,19 +2,32 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { PatternFormat } from "react-number-format";
 import { useDispatch } from "react-redux";
+import { Axios } from "../../../core/axios";
 
-import { setStep } from "@/redux/slice/main";
+import { setPhone, setStep, stepSelector } from "@/redux/slice/main";
 
 import StepButton from "../StepButton";
 
 const PhoneStep: React.FC = () => {
   const [phoneNum, setPhoneNum] = React.useState("");
   const [isDisabled, setIsDisabled] = React.useState(true);
-
   const dp = useDispatch();
 
-  const onNextStep = () => {
-    dp(setStep(5));
+  const onNextStep = async () => {
+    try {
+      let origPhone: string = "";
+      for (let i = 0; i < phoneNum.length; i++) {
+        if (/^\d+$/.test(phoneNum[i])) {
+          origPhone += phoneNum[i];
+        }
+      }
+      dp(setPhone(origPhone));
+      dp(setStep(5));
+
+      await Axios.get(`/auth/sms?phone=${origPhone}`);
+    } catch (error) {
+      return console.warn("Failed in phone step", error);
+    }
   };
 
   const onNumberChange = (inputValue: string) => {
