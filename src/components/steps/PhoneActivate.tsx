@@ -26,10 +26,6 @@ const PhoneActivate: React.FC = () => {
 
     if (ev.target.nextSibling) {
       (ev.target.nextSibling as HTMLInputElement).focus();
-    } else {
-      setTimeout(() => {
-        onSubm([...codes, value].join(""));
-      }, 1000);
     }
   };
 

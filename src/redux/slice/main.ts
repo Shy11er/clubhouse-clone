@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export type UserData = {
-  id: number;
+  id?: number;
   fullname: string;
   avatarUrl: string;
   isActive: number;

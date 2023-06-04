@@ -33,8 +33,6 @@ export default function Home() {
       (async () => {
         const data = await Axios.get("/auth/me");
         console.log(data.data.data);
-        dp(setData(data.data.data));
-        dp(setStep(2));
       })();
     }
   }, []);

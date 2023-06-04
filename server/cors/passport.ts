@@ -16,7 +16,6 @@ const opts = {
 passport.use(
   "jwt",
   new JwtStrategy(opts, (jwt_payload, done) => {
-    console.log(jwt_payload);
     done(null, jwt_payload);
   })
 );
@@ -33,7 +32,7 @@ passport.use(
       try {
         let userData: UserData;
 
-        const obj: Omit<UserData, "id"> = {
+        const obj: UserData = {
           fullname: profile.displayName,
           avatarUrl: profile.photos?.[0].value,
           isActive: 0,
@@ -56,12 +55,14 @@ passport.use(
           userData = await findUser.toJSON();
         }
 
+        const token = createJwtToken(userData);
+
         console.log({
           ...userData,
-          token: createJwtToken(userData),
+          token,
         });
 
-        done(null, { ...userData, token: createJwtToken(userData) });
+        done(null, { ...userData, token });
       } catch (error) {
         done(error);
       }

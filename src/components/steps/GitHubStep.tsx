@@ -31,9 +31,10 @@ const GitHubStep: React.FC = () => {
   React.useEffect(() => {
     window.addEventListener("message", (data) => {
       const obj: UserData = JSON.parse(data.data);
+      console.log(obj);
       if (Cookies.get("token"))
         Cookies.remove("token", { path: "/", domain: "localhost" });
-      
+
       Cookies.set("token", obj.token);
       // dp(setUserName(obj.username));
       // dp(setAvatar(obj.avatarUrl));

@@ -19,7 +19,7 @@ class authController {
 
   //!ACTIVATE ACCOUNT
   async activate(req: Request, res: Response) {
-    const userId = req.user.id;
+    const userId = req.user.data?.id;
     const smsCode = req.query.code;
 
     if (!smsCode) {
@@ -27,8 +27,8 @@ class authController {
         message: "Enter activating code",
       });
     }
-
-    const whereQuery = { code: smsCode, user_id: userId };
+    console.log(userId, smsCode);
+    const whereQuery = { user_id: userId, code: smsCode };
 
     try {
       const findOne = await Code.findOne({
@@ -36,15 +36,17 @@ class authController {
       });
 
       if (findOne) {
-        await Code.destroy({
-          where: whereQuery,
-        });
-        User.update({ isActive: true }, { where: { id: userId } });
+        // await Code.destroy({
+        //   where: whereQuery,
+        // });
+        User.update({ isActive: 1 }, { where: { id: userId } });
+
         return res.send();
       } else {
         throw new Error("User is undefined");
       }
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         message: "Failed to activate account",
       });
@@ -54,7 +56,11 @@ class authController {
   //! SEND SMS TO PHONE
   async sendSMS(req: Request, res: Response) {
     const phone = req.query.phone;
-    const userId = req.user.id;
+    const userId = req.user.data?.id;
+
+    const code: string = (
+      Math.floor(Math.random() * (9999 - 1001)) + 1000
+    ).toString();
 
     if (!phone) {
       return res.status(400).json({
@@ -63,24 +69,40 @@ class authController {
     }
 
     const options = {
-      method: "GET",
-      url: "https://phonenumbervalidatefree.p.rapidapi.com/ts_PhoneNumberValidateTest.jsp",
+      method: "POST",
+      url: "https://telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com/sms-verification-code",
       params: {
-        // number: `+${phone}`,
-        number: `+79871169415`,
-        country: "RU",
+        phoneNumber: "79871169415",
+        verifyCode: code,
+        appName: "clubhouse",
       },
       headers: {
         "X-RapidAPI-Key": "fbca8a04f8msh354fe5934e12c41p1345bdjsndfb2375ea4c9",
-        "X-RapidAPI-Host": "phonenumbervalidatefree.p.rapidapi.com",
+        "X-RapidAPI-Host":
+          "telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com",
       },
     };
 
     try {
-      // await axios.request(options);
+      /*
+        TODO: find sms api!! 
+        const response = await axios.request(options);
+
+        console.log(response);
+      */
+
+      const findOne = User.findOne({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (findOne) {
+        await User.update({ phone }, { where: { id: userId } });
+      }
 
       await Code.create({
-        code: Math.floor(Math.random() * (9999 - 1001)) - 1000,
+        code: code,
         user_id: userId,
       });
     } catch (error) {
