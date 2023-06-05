@@ -24,7 +24,7 @@ const GitHubStep: React.FC = () => {
     }, 1000);
   };
 
-  const onNextStep = (data) => {
+  const onNextStep = (data: number) => {
     dp(setStep(data));
   };
 

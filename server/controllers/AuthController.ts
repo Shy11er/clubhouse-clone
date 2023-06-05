@@ -100,7 +100,12 @@ class authController {
       if (findOne) {
         await User.update({ phone }, { where: { id: userId } });
       }
-
+      console.log(code);
+      await Code.destroy({
+        where: {
+          user_id: userId,
+        },
+      });
       await Code.create({
         code: code,
         user_id: userId,

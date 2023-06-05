@@ -26,16 +26,16 @@ const steps: Dict<React.FC> = {
 
 export default function Home() {
   const { step } = useSelector(stepSelector);
-  const dp = useDispatch();
-  const token = Cookies.get("token");
-  React.useEffect(() => {
-    if (token) {
-      (async () => {
-        const data = await Axios.get("/auth/me");
-        console.log(data.data.data);
-      })();
-    }
-  }, []);
+  // const dp = useDispatch();
+  // const token = Cookies.get("token");
+  // React.useEffect(() => {
+  //   if (token) {
+  //     (async () => {
+  //       const data = await Axios.get("/auth/me");
+  //       console.log(data.data.data);
+  //     })();
+  //   }
+  // }, []);
   const Step = steps[step];
 
   return (

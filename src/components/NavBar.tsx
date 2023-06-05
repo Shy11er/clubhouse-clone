@@ -22,8 +22,8 @@ const NavBar: React.FC = () => {
       <Link legacyBehavior href={`/profile/123`}>
         <a>
           <div className="flex-row flex items-center justify-center text-center">
-            <h1 className="text-2xl mx-2">{fullname}</h1>
-            <Avatar fullName={fullname} isUserAvatar />
+            <h1 className="text-2xl mx-2">{fullname || "daniel"}</h1>
+            <Avatar fullName={fullname || "daniel"} isUserAvatar />
           </div>
         </a>
       </Link>
