@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 import Welcome from "../components/steps/Welcome";
 import PhoneStep from "@/components/steps/PhoneStep";
@@ -9,9 +8,9 @@ import GitHubStep from "@/components/steps/GitHubStep";
 import CongratStep from "@/components/steps/CongratStep";
 import PhoneActivate from "@/components/steps/PhoneActivate";
 
-import { setData, setStep, stepSelector } from "@/redux/slice/main";
-import { Axios } from "../../core/axios";
+import { stepSelector } from "@/redux/slice/main";
 import { CheckAuth } from "../../utils/checkAuth";
+import { Api } from "../../api/";
 interface Dict<T> {
   [Key: number]: T;
 }

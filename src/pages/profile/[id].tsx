@@ -25,7 +25,11 @@ const Profile: React.FC = () => {
           <h1 className="mx-1">Back</h1>
         </Link>
         <div className="flex flex-row justify-between items-start">
-          <UserInfo userName={fullname} fullName={fullname} about={"asdasf"} />
+          <UserInfo
+            userName={"fullname"}
+            fullName={"fullname"}
+            about={"asdasf"}
+          />
           <div className="bg-white flex flex-row rounded-2xl">
             <div className="p-4 flex flex-col text-center">
               <h1 className="text-3xl font-bold">2</h1>
