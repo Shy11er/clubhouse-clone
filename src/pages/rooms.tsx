@@ -4,7 +4,7 @@ import Head from "next/head";
 import Button from "@/components/Button";
 import NavBar from "@/components/NavBar";
 import Conversation from "@/components/Conversation";
-import { CheckAuth } from "../../helpers/checkAuth";
+import { CheckAuth } from "../../utils/checkAuth";
 
 export default function Rooms({ rooms = [] }) {
   return (

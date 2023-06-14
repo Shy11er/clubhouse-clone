@@ -4,7 +4,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import dotenv from "dotenv";
 import { User } from "../../models";
 import { UserData } from "@/redux/slice/main";
-import { createJwtToken } from "../utils/createJwtToken";
+import { createJwtToken } from "../../utils/createJwtToken";
 
 dotenv.config({ path: "./server/.env" });
 

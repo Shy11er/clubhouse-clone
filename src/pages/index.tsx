@@ -11,6 +11,7 @@ import PhoneActivate from "@/components/steps/PhoneActivate";
 
 import { setData, setStep, stepSelector } from "@/redux/slice/main";
 import { Axios } from "../../core/axios";
+import { CheckAuth } from "../../utils/checkAuth";
 interface Dict<T> {
   [Key: number]: T;
 }
@@ -44,3 +45,23 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = async (ctx) => {
+  try {
+    const user = await CheckAuth(ctx);
+
+    if (user) {
+      return {
+        redirect: {
+          destination: "/rooms",
+          permanent: false,
+        },
+        props: {},
+      };
+    }
+  } catch (error) {}
+
+  return {
+    props: {},
+  };
+};
