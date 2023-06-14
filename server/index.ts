@@ -5,7 +5,9 @@ import multer from "multer";
 import cors from "cors";
 import "./cors/db";
 import { passport } from "./cors/passport";
+
 import AuthController from "./controllers/AuthController";
+import RoomController from "./controllers/RoomController";
 import { storage } from "./controllers/Uploader";
 
 dotenv.config({
@@ -52,6 +54,16 @@ app.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   AuthController.authCallback
 );
+
+//! POSTS
+app.get(
+  "/rooms",
+  passport.authenticate("jwt", { session: false }),
+  RoomController.getRoom
+);
+app.post("/rooms");
+app.post("/rooms/:id");
+app.delete("/rooms/:id");
 
 app.listen(PORT || 3333, () => {
   console.log(`server runned in port: ${PORT}`);
