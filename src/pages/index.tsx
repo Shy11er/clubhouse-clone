@@ -37,6 +37,12 @@ export default function Home() {
   //     })();
   //   }
   // }, []);
+  // let temporaryStep: number = 0;
+  // let temporaryStep = null;
+  // if (typeof window !== "undefined") {
+  //   temporaryStep = parseInt(window.localStorage.getItem("step"));
+  // }
+
   const Step = steps[step];
 
   return (
@@ -50,7 +56,7 @@ export const getServerSideProps = async (ctx) => {
   try {
     const user = await CheckAuth(ctx);
 
-    if (user) {
+    if (user.isActive) {
       return {
         redirect: {
           destination: "/rooms",

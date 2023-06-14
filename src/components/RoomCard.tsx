@@ -28,6 +28,7 @@ const RoomCard: React.FC<Props> = ({
             index < 2 ? (
               <>
                 <div
+                  key={index}
                   className={
                     "w-16 h-8 justify-evenly relative " +
                     (index == 1 ? "avatarChi" : "")
@@ -43,9 +44,10 @@ const RoomCard: React.FC<Props> = ({
               </>
             ) : (
               <>
-                <div className="absolute w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center font-bold text-xl top-6 right-6 text-white">{`+${
-                  index - 1
-                }`}</div>
+                <div
+                  key={index}
+                  className="absolute w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center font-bold text-xl top-6 right-6 text-white"
+                >{`+${index - 1}`}</div>
               </>
             )
           )}

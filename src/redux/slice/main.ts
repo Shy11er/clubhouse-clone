@@ -29,6 +29,7 @@ const stepSlice = createSlice({
   reducers: {
     setStep(state, action) {
       state.step = action.payload;
+      window.localStorage.setItem("step", action.payload);
     },
     setUserName(state, action) {
       state.username = action.payload;
@@ -55,7 +56,13 @@ const stepSlice = createSlice({
 
 export const stepSelector = (state: RootState) => state.stepSlice;
 
-export const { setStep, setUserName, setFullName, setAvatar, setData, setPhone } =
-  stepSlice.actions;
+export const {
+  setStep,
+  setUserName,
+  setFullName,
+  setAvatar,
+  setData,
+  setPhone,
+} = stepSlice.actions;
 
 export default stepSlice.reducer;

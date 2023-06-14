@@ -35,6 +35,7 @@ const PhoneActivate: React.FC = () => {
       setIsLoading(true);
       await Axios.get(`/auth/sms/activate?code=${code}`);
       route.push("/rooms");
+      window.localStorage.removeItem("step");
     } catch (e) {
       setCodes(() => ["", "", "", ""]);
       alert("Connection failed in phone activating step!");
