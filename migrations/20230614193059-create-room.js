@@ -13,10 +13,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       speakers: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
       },
       listenersCount: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,

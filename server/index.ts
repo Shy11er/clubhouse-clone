@@ -5,6 +5,7 @@ import multer from "multer";
 import cors from "cors";
 import "./cors/db";
 import { passport } from "./cors/passport";
+import bodyParser from "body-parser";
 
 import AuthController from "./controllers/AuthController";
 import RoomController from "./controllers/RoomController";
@@ -28,6 +29,8 @@ app.use(
 );
 app.use("/upload", express.static("uploads"));
 app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.post("/upload", uploader.single("photo"), (req, res) => {
   res.json({ url: `/avatars/${req.file.filename}` });
@@ -59,11 +62,23 @@ app.get(
 app.get(
   "/rooms",
   passport.authenticate("jwt", { session: false }),
-  RoomController.getRoom
+  RoomController.getRooms
 );
-app.post("/rooms");
-app.post("/rooms/:id");
-app.delete("/rooms/:id");
+app.post(
+  "/rooms",
+  passport.authenticate("jwt", { session: false }),
+  RoomController.create
+);
+app.get(
+  `/rooms/:id`,
+  passport.authenticate("jwt", { session: false }),
+  RoomController.show
+);
+app.delete(
+  "/rooms/:id",
+  passport.authenticate("jwt", { session: false }),
+  RoomController.delete
+);
 
 app.listen(PORT || 3333, () => {
   console.log(`server runned in port: ${PORT}`);
