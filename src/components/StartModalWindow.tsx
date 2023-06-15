@@ -2,6 +2,9 @@ import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Button from "./Button";
+import { useRouter } from "next/router";
+import { RoomApi, RoomType } from "../../api/RoomApi";
+import { Axios } from "../../core/axios";
 
 type Props = {
   onClose: () => void;
@@ -14,8 +17,30 @@ const roomTypes = [
 ];
 
 export const StartModalWindow: React.FC<Props> = ({ onClose }) => {
+  const router = useRouter();
   const [isActive, setIsActive] = React.useState(0);
   const [searchValue, setSearchValue] = React.useState("");
+
+  const onSubmit = async () => {
+    try {
+      // const room = await Axios.post("/rooms", form);
+      const form = {
+        title: searchValue,
+        type: roomTypes[isActive][0],
+      } as any;
+
+      if (!searchValue) {
+        return alert("Enter room name");
+      }
+
+      const room = await RoomApi(Axios).createRoom(form);
+      onClose();
+      router.push(`/rooms/${room.id}`);
+    } catch (error) {
+      console.log(error);
+      alert("Failed to create the room");
+    }
+  };
 
   return (
     <div className="w-full h-full bg-[rgba(0,0,0,.8)] absolute z-50 flex justify-center items-center ">
@@ -63,7 +88,7 @@ export const StartModalWindow: React.FC<Props> = ({ onClose }) => {
           <h1 className="font-bold text-xl mt-4 mb-2">
             Start a room open to everyone
           </h1>
-          <Button title="Let's go" onClick={onClose}></Button>
+          <Button title="Let's go" onClick={onSubmit}></Button>
         </div>
       </div>
     </div>

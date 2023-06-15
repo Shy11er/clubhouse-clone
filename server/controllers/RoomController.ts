@@ -14,11 +14,11 @@ class postController {
 
   async create(req: Request, res: Response) {
     try {
-      console.log(req.body, 2222222222222222222);
       const data = {
         title: req.body.title,
         type: req.body.type,
       };
+      
       if (!data.title || !data.type) {
         return res
           .status(400)
