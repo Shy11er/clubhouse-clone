@@ -11,6 +11,8 @@ import PhoneActivate from "@/components/steps/PhoneActivate";
 import { stepSelector } from "@/redux/slice/main";
 import { CheckAuth } from "../../utils/checkAuth";
 import { Api } from "../../api/";
+import { GetServerSidePropsContext } from "next";
+
 interface Dict<T> {
   [Key: number]: T;
 }
@@ -51,7 +53,7 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
     const user = await CheckAuth(ctx);
 

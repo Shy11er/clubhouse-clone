@@ -3,10 +3,14 @@ import React from "react";
 
 import RoomCard from "./RoomCard";
 
-const Conversation: React.FC = () => {
+type Props = {
+  rooms: any[];
+};
+
+const Conversation: React.FC<Props> = ({ rooms }) => {
   return (
     <div className="w-full rounded-3xl mt-8 grid grid-cols-4 gap-y-4 gap-x-2">
-      {[...Array(10)].map((obj, index) => (
+      {rooms.map((obj, index) => (
         <>
           <Link legacyBehavior href={`/rooms/${index}`}>
             <a className="h-min w-min">

@@ -1,9 +1,12 @@
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
 import Cookies from "nookies";
+import { RoomApi } from "./RoomApi";
 import { UserApi } from "./UserApi";
 
-export const Api = (ctx: GetServerSidePropsContext) => {
+type ApiReturnType = ReturnType<typeof UserApi> & ReturnType<typeof RoomApi>;
+
+export const Api = (ctx: GetServerSidePropsContext): ApiReturnType => {
   const { token } = Cookies.get(ctx);
 
   const instance = axios.create({
@@ -15,5 +18,6 @@ export const Api = (ctx: GetServerSidePropsContext) => {
 
   return {
     ...UserApi(instance),
+    ...RoomApi(instance),
   };
 };

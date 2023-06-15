@@ -6,25 +6,20 @@ import Avatar from "./Avatar";
 
 type Props = {
   title: string;
-  memberList: string[];
-  memberAmount: number;
-  commentAmount: number;
+  avatars: string[];
+  speakers: string[];
+  listenersCount: number;
 };
 
 const members: string[] = ["ann", "casey", "jack"];
 
-const RoomCard: React.FC<Props> = ({
-  title,
-  memberList,
-  memberAmount,
-  commentAmount,
-}) => {
+const RoomCard: React.FC<Props> = ({ title, speakers, listenersCount }) => {
   return (
     <div className="shadowB w-80 h-48 bg-[#f4f4f0] flex flex-col justify-start pl-6 pr-12 py-6 rounded-3xl cursor-pointer hover:scale-105 ease-linear duration-75">
       <h1 className="text-2xl font-semibold mb-2">{title}</h1>
       <div className="w-full h-full flex flex-row">
         <div className="avatars flex flex-col justify-start relative w-[82px] h-[84px] mr-2 border-2 border-white-400 rounded-3xl">
-          {memberList.map((obj, index) =>
+          {["speakers"].map((obj, index) =>
             index < 2 ? (
               <>
                 <div
@@ -64,11 +59,11 @@ const RoomCard: React.FC<Props> = ({
           </ul>
           <div className="flex flex-row mt-2 text-gray-500">
             <div className="flex flex-row items-center">
-              {memberAmount}
+              {listenersCount}
               <FaUserAlt className="mx-1" />
             </div>
             <div className="flex flex-row items-center">
-              {commentAmount}
+              {123}
               <BiCommentDetail className="mx-1" />
             </div>
           </div>
