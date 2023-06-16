@@ -1,6 +1,6 @@
-import { UserData } from "@/redux/slice/main";
 import { GetServerSidePropsContext } from "next";
 import { Api } from "../api";
+import { UserData } from "./types";
 
 export const CheckAuth = async (
   ctx: GetServerSidePropsContext

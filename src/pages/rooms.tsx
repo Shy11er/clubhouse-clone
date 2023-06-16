@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         rooms,
-        user: user.data,
+        user: user,
       },
     };
   } catch (error) {

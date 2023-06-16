@@ -57,7 +57,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
     const user = await CheckAuth(ctx);
 
-    if (user.isActive) {
+    if (Number(user?.isActive)) {
       return {
         redirect: {
           destination: "/rooms",

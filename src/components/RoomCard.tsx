@@ -11,7 +11,6 @@ const RoomCard: React.FC<RoomCardProps> = ({
   listenersCount,
   avatars,
 }) => {
-  console.log(avatars);
   return (
     <div className="shadowB w-80 h-48 bg-[#f4f4f0] flex flex-col justify-start pl-6 pr-12 py-6 rounded-3xl cursor-pointer hover:scale-105 ease-linear duration-75">
       <h1 className="text-2xl font-semibold mb-2">{title}</h1>

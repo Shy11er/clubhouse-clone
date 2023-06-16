@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (
     if (user) {
       return {
         props: {
-          user: user.data,
+          user: user,
         },
       };
     }
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (
     return {
       props: {
         redirect: {
-          destination: "/rooms",
+          destination: "/",
           permanent: false,
         },
       },

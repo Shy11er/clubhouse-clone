@@ -59,14 +59,25 @@ const UserRoom: React.FC<Props> = ({ room, user }) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
+    const user = await Api(ctx).getMe();
+
+    if (!user) {
+      return {
+        props: {
+          redirect: {
+            destination: "/",
+            permanent: false,
+          },
+        },
+      };
+    }
+
     const roomId = Number(ctx.query.id);
     const room = await Api(ctx).getRoom(roomId);
-    const { data } = await Api(ctx).getMe();
-
     return {
       props: {
         room,
-        user: data,
+        user: user,
       },
     };
   } catch (error) {
