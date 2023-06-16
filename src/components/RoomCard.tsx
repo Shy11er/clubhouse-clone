@@ -3,15 +3,9 @@ import { FaUserAlt } from "react-icons/fa";
 import { BiCommentDetail } from "react-icons/bi";
 
 import Avatar from "./Avatar";
+import { RoomCardProps } from "../../utils/types";
 
-type Props = {
-  title: string;
-  avatars: string[];
-  speakers: string[];
-  listenersCount: number;
-};
-
-const RoomCard: React.FC<Props> = ({
+const RoomCard: React.FC<RoomCardProps> = ({
   title,
   speakers,
   listenersCount,

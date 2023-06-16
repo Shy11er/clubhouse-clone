@@ -1,21 +1,18 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import Link from "next/link";
-import { stepSelector } from "@/redux/slice/main";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import NavBar from "@/components/NavBar";
 import UserInfo from "@/components/UserInfo";
-import { useSelector } from "react-redux";
+import { Api } from "../../../api";
+import { ProfileProps } from "../../../utils/types";
 
-const Profile: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const { fullname } = useSelector(stepSelector);
-
+const Profile: React.FC<ProfileProps> = ({ user }) => {
+  console.log(user);
   return (
     <div className="h-full w-full">
-      <NavBar />
+      <NavBar user={user} />
       <div className="px-20 py-10 w-full flex flex-col">
         <Link
           className="text-3xl font-semibold flex flex-row items-center mb-10"
@@ -26,8 +23,9 @@ const Profile: React.FC = () => {
         </Link>
         <div className="flex flex-row justify-between items-start">
           <UserInfo
-            userName={"fullname"}
-            fullName={"fullname"}
+            avatarUrl={user?.avatarUrl}
+            userName={user?.username}
+            fullName={user?.fullname}
             about={"asdasf"}
           />
           <div className="bg-white flex flex-row rounded-2xl">
@@ -44,6 +42,42 @@ const Profile: React.FC = () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  try {
+    const user = await Api(ctx).getMe();
+
+    if (user) {
+      return {
+        props: {
+          user: user.data,
+        },
+      };
+    }
+
+    return {
+      props: {
+        redirect: {
+          destination: "/rooms",
+          permanent: false,
+        },
+      },
+    };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      props: {
+        user: [],
+        redirect: {
+          destination: "/rooms",
+          permanent: false,
+        },
+      },
+    };
+  }
 };
 
 export default Profile;

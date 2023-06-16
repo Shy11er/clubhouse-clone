@@ -10,13 +10,14 @@ import { CheckAuth } from "../../utils/checkAuth";
 import { StartModalWindow } from "@/components/StartModalWindow";
 import { Api } from "../../api";
 import RoomCard from "@/components/RoomCard";
-import { Room } from "../../api/RoomApi";
+import { Room, UserData } from "../../utils/types";
 
 type RoomPageProps = {
   rooms: Room[];
+  user: UserData;
 };
 
-const RoomPage: NextPage<RoomPageProps> = ({ rooms }) => {
+const RoomPage: NextPage<RoomPageProps> = ({ rooms, user }) => {
   const [isVisible, setIsVisible] = React.useState(false);
 
   return (
@@ -27,7 +28,7 @@ const RoomPage: NextPage<RoomPageProps> = ({ rooms }) => {
         <title>Clubhouse</title>
       </Head>
       <div className="h-full w-full">
-        <NavBar />
+        <NavBar user={user} />
         <div className="w-full h-auto text-3xl mt-8 px-20 flex justify-between">
           <h1>All conversations</h1>
           <Button onClick={() => setIsVisible(true)} title="+Start room" />
@@ -75,6 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         rooms,
+        user: user.data,
       },
     };
   } catch (error) {
@@ -82,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         rooms: [],
+        user: null,
       },
     };
   }

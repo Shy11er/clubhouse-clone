@@ -1,16 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { UserData } from "../../../utils/types";
 import { RootState } from "../store";
 
-export type UserData = {
-  id?: number;
-  fullname: string;
-  avatarUrl: string;
-  isActive: number;
-  username: string;
-  phone: string;
-  token?: string;
-  step?: number;
-};
 
 const initialState: UserData = {
   id: 0,

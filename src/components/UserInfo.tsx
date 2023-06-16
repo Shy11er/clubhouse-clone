@@ -1,30 +1,27 @@
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { UserInfoProps } from "../../utils/types";
 
 import Avatar from "./Avatar";
 import Button from "./Button";
 
-type Props = {
-  fullName: string;
-  userName: string;
-  avatarUrl?: string;
-  about: string;
-};
-
-const UserInfo: React.FC<Props> = ({
+const UserInfo: React.FC<UserInfoProps> = ({
   fullName,
   userName,
   avatarUrl,
   about,
 }) => {
-  const arr = fullName.split(" ");
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center">
-        <Avatar fullName={fullName} isUserAvatar={false} imageUrl={avatarUrl} />
+        <Avatar
+          fullName={fullName || userName}
+          isUserAvatar={false}
+          imageUrl={avatarUrl}
+        />
         <div className="flex flex-col mx-6">
           <h1 className="text-2xl font-bold leading-12">{fullName}</h1>
-          <p className="text-xl">{`@${arr.at(-1).toLowerCase()}`}</p>
+          <p className="text-xl">{`@${userName.toLowerCase()}`}</p>
         </div>
         <Button
           clsName="py-1 px-6 text-xl bg-transparent border-2 border-[#4e72c6] text-[#4e72c6] rounded-3xl"

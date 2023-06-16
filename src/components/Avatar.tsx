@@ -1,9 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-import logo from "../../public/assets/ex.jpg";
-import logo2 from "../../public/assets/ex2.jpg";
-
 type Props = {
   fullName: string;
   imageUrl?: string;
@@ -17,12 +14,11 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
     .join("");
 
   if (isUserAvatar) {
-    imageUrl = "1";
     return (
       <>
         {imageUrl !== "" ? (
           <Image
-            src={logo}
+            src={imageUrl}
             width="24"
             height="24"
             alt="logo"
@@ -45,7 +41,7 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
         <Image
           src={imageUrl}
           width="600"
-          height="604"
+          height="600"
           alt="logo"
           className={`w-32 h-32 rounded-full border-2`}
         />

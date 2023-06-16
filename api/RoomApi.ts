@@ -1,11 +1,5 @@
 import { AxiosInstance } from "axios";
-
-export interface Room {
-  id?: number;
-  title?: string;
-  speakers?: any[];
-  listenersCount?: number;
-}
+import { Room } from "../utils/types";
 
 export type RoomType = "open" | "social" | "closed";
 

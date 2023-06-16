@@ -5,15 +5,17 @@ import NavBar from "@/components/NavBar";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { Api } from "../../../api";
-import { Room, RoomApi } from "../../../api/RoomApi";
+import { RoomApi } from "../../../api/RoomApi";
 import Button from "@/components/Button";
 import { Axios } from "../../../core/axios";
+import { Room, UserData } from "../../../utils/types";
 
 type Props = {
   room: Room;
+  user: UserData;
 };
 
-const UserRoom: React.FC<Props> = ({ room }) => {
+const UserRoom: React.FC<Props> = ({ room, user }) => {
   const onExit = async () => {
     try {
       const roomId = room.id;
@@ -22,10 +24,11 @@ const UserRoom: React.FC<Props> = ({ room }) => {
       alert("Failed to remove room");
     }
   };
+  console.log(user);
 
   return (
     <div className="h-full w-full ">
-      <NavBar />
+      <NavBar user={user} />
       <div className="w-full h-auto text-3xl mt-8 px-20 flex justify-between">
         <Link href="/rooms" legacyBehavior>
           <a className="flex flex-row items-center">
@@ -58,10 +61,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
     const roomId = Number(ctx.query.id);
     const room = await Api(ctx).getRoom(roomId);
+    const { data } = await Api(ctx).getMe();
 
     return {
       props: {
         room,
+        user: data,
       },
     };
   } catch (error) {
@@ -69,6 +74,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         rooms: [],
+        user: null,
         redirect: {
           destination: "/rooms",
           permanent: false,
