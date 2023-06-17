@@ -11,7 +11,7 @@ const initialState: UserData = {
   phone: "",
   token: "",
   step: 0,
-  withGithub: false,
+  withGithub: true,
 };
 
 const stepSlice = createSlice({
