@@ -20,23 +20,6 @@ const Register: React.FC = () => {
   };
 
   const onNextStep = async () => {
-    if (!withGithub) {
-      try {
-        const data = {
-          fullname: usName,
-          avatarUrl,
-          username: "test",
-        };
-
-        const obj = await UserApi(Axios).register(data);
-        if (Cookies.get("token"))
-          Cookies.remove("token", { path: "/", domain: "localhost" });
-
-        Cookies.set("token", obj.token);
-      } catch (error) {
-        alert("Failed with registration");
-      }
-    }
     dp(setStep(3));
     dp(setFullName(usName));
   };

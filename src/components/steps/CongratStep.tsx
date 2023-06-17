@@ -7,6 +7,8 @@ import { setAvatar, setStep, stepSelector } from "@/redux/slice/main";
 import Avatar from "../Avatar";
 import StepButton from "../StepButton";
 import { Axios } from "../../../core/axios";
+import { UserApi } from "../../../api/UserApi";
+import Cookies from "js-cookie";
 
 const uploadFile = async (file: File): Promise<{ url: string }> => {
   const formData = new FormData();
@@ -22,13 +24,30 @@ const uploadFile = async (file: File): Promise<{ url: string }> => {
 };
 
 const CongratStep: React.FC = () => {
-  const { avatarUrl, fullname } = useSelector(stepSelector);
+  const { avatarUrl, fullname, withGithub } = useSelector(stepSelector);
   const dp = useDispatch();
 
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [url, setUrl] = React.useState(avatarUrl);
 
-  const onNextStep = () => {
+  const onNextStep = async () => {
+    if (!withGithub) {
+      try {
+        const data = {
+          fullname,
+          avatarUrl,
+          username: "tester",
+        };
+
+        const obj = await UserApi(Axios).register(data);
+        if (Cookies.get("token"))
+          Cookies.remove("token", { path: "/", domain: "localhost" });
+
+        Cookies.set("token", obj.token);
+      } catch (error) {
+        alert("Failed with registration");
+      }
+    }
     dp(setStep(4));
   };
 
