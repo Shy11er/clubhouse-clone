@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Response, Request } from "express";
 import { Code, User } from "../../models";
+import { createJwtToken } from "../../utils/createJwtToken";
+import { UserData } from "../../utils/types";
 
 class authController {
   //!ET ME
@@ -15,6 +17,29 @@ class authController {
         req.user
       )}', '*');window.close();</script>"`
     );
+  }
+
+  async register(req: Request, res: Response) {
+    try {
+      const obj: UserData = {
+        fullname: req.body.fullname,
+        avatarUrl: req.body?.avatarUrl,
+        isActive: 0,
+        username: req.body.username,
+        phone: "",
+      };
+
+      obj.token = createJwtToken(obj);
+
+      const user = await User.create(obj);
+
+      res.send(user);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: "Failed to sign up user",
+      });
+    }
   }
 
   //!ACTIVATE ACCOUNT
@@ -56,8 +81,9 @@ class authController {
   //! SEND SMS TO PHONE
   async sendSMS(req: Request, res: Response) {
     const phone = req.query.phone;
+    console.log("first")
     const userId = req.user.data?.id;
-
+    console.log("second")
     const code: string = (
       Math.floor(Math.random() * (9999 - 1001)) + 1000
     ).toString();
@@ -91,13 +117,14 @@ class authController {
         console.log(response);
       */
 
-      const findOne = User.findOne({
+      const findOne = await User.findOne({
         where: {
           id: userId,
         },
       });
 
       if (findOne) {
+        console.log("fined")
         await User.update({ phone }, { where: { id: userId } });
       }
       console.log(code);

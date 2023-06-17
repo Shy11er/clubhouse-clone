@@ -1,4 +1,4 @@
-import { setStep, UserData, setData } from "@/redux/slice/main";
+import { setStep, setData, setWithGit } from "@/redux/slice/main";
 import React from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 
 import Avatar from "../Avatar";
 import StepButton from "../StepButton";
+import { UserData } from "../../../utils/types";
 
 const GitHubStep: React.FC = () => {
   const dp = useDispatch();
@@ -23,6 +24,11 @@ const GitHubStep: React.FC = () => {
       }
     }, 1000);
   };
+
+  const onRegister = () => {
+    onNextStep(2);
+    dp(setWithGit(false));
+  }
 
   const onNextStep = (data: number) => {
     dp(setStep(data));
@@ -68,7 +74,7 @@ const GitHubStep: React.FC = () => {
             }
           />
           <p
-            onClick={() => onNextStep(2)}
+            onClick={onRegister}
             className="mt-1 text-cyan-800 hover:text-cyan-600 cursor-pointer"
           >
             Continue without github

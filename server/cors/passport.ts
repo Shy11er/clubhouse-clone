@@ -3,8 +3,8 @@ import { Strategy as GithubStrategy } from "passport-github";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import dotenv from "dotenv";
 import { User } from "../../models";
-import { UserData } from "@/redux/slice/main";
 import { createJwtToken } from "../../utils/createJwtToken";
+import { UserData } from "../../utils/types";
 
 dotenv.config({ path: "./server/.env" });
 

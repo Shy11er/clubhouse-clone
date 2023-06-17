@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import StepButton from "../StepButton";
 
 import { setStep, stepSelector, setFullName } from "@/redux/slice/main";
+import { UserApi } from "../../../api/UserApi";
+import { Axios } from "../../../core/axios";
 
 const Register: React.FC = () => {
-  const { fullname } = useSelector(stepSelector);
+  const { fullname, withGithub, avatarUrl } = useSelector(stepSelector);
   const [usName, setUsName] = React.useState<string>(fullname || "");
 
   const dp = useDispatch();
@@ -16,7 +18,19 @@ const Register: React.FC = () => {
     setUsName(ev.target.value);
   };
 
-  const onNextStep = () => {
+  const onNextStep = async () => {
+    if (!withGithub) {
+      try {
+        const data = {
+          fullname: usName,
+          avatarUrl,
+          username: "test",
+        };
+        await UserApi(Axios).register(data);
+      } catch (error) {
+        alert("Failed with registration");
+      }
+    }
     dp(setStep(3));
     dp(setFullName(usName));
   };

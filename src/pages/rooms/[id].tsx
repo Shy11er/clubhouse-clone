@@ -1,21 +1,56 @@
 import React from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-
-import NavBar from "@/components/NavBar";
+import io, { Socket } from "socket.io-client";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
+
+import NavBar from "@/components/NavBar";
 import { Api } from "../../../api";
 import { RoomApi } from "../../../api/RoomApi";
 import Button from "@/components/Button";
 import { Axios } from "../../../core/axios";
-import { Room, UserData } from "../../../utils/types";
+import { UserRoomProps } from "../../../utils/types";
+import Avatar from "@/components/Avatar";
+import { useRouter } from "next/router";
 
-type Props = {
-  room: Room;
-  user: UserData;
+type SpeakersType = {
+  username: string;
+  avatarUrl: string;
 };
 
-const UserRoom: React.FC<Props> = ({ room, user }) => {
+const Speakers: React.FC<SpeakersType> = ({ username, avatarUrl }) => {
+  return (
+    <div className="flex flex-col h-fit text-center items-center w-fit m-2">
+      <Avatar fullName={username} isUserAvatar imageUrl={avatarUrl} />
+      <h1 className="text-xl w-1/2">{username}</h1>
+    </div>
+  );
+};
+
+const UserRoom: React.FC<UserRoomProps> = ({ room, user }) => {
+  const socketRef = React.useRef<Socket>();
+  const [users, setUsers] = React.useState<SpeakersType[]>([]);
+  const router = useRouter();
+  console.log(router.query);
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      socketRef.current = io("http://localhost:3333");
+
+      socketRef.current.emit("client@rooms:join", {
+        user,
+        roomId: router.query.id,
+      });
+
+      socketRef.current.emit("server@rooms:join", (s) => {
+        console.log(s);
+      });
+    }
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
+
   const onExit = async () => {
     try {
       const roomId = room.id;
@@ -24,7 +59,6 @@ const UserRoom: React.FC<Props> = ({ room, user }) => {
       alert("Failed to remove room");
     }
   };
-  console.log(user);
 
   return (
     <div className="h-full w-full ">
@@ -50,6 +84,12 @@ const UserRoom: React.FC<Props> = ({ room, user }) => {
                 />
               </a>
             </Link>
+          </div>
+          <div className="h-1/4 w-full"></div>
+          <div className="h-1/2 w-full flex flex-wrap flex-start">
+            {users.map((obj, index) => (
+              <Speakers key={index} {...obj} />
+            ))}
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { UserData } from "../../../utils/types";
 import { RootState } from "../store";
 
-
 const initialState: UserData = {
   id: 0,
   fullname: "",
@@ -12,6 +11,7 @@ const initialState: UserData = {
   phone: "",
   token: "",
   step: 0,
+  withGithub: false,
 };
 
 const stepSlice = createSlice({
@@ -42,6 +42,9 @@ const stepSlice = createSlice({
       state.isActive = action.payload.isActive;
       state.token = action.payload.token;
     },
+    setWithGit(state, action) {
+      state.withGithub = action.payload;
+    },
   },
 });
 
@@ -54,6 +57,7 @@ export const {
   setAvatar,
   setData,
   setPhone,
+  setWithGit,
 } = stepSlice.actions;
 
 export default stepSlice.reducer;

@@ -7,6 +7,7 @@ export type UserData = {
   phone?: string;
   token?: string;
   step?: number;
+  withGithub?: boolean;
 };
 
 export type UserInfoProps = {
@@ -31,5 +32,10 @@ export interface Room {
 }
 
 export type ProfileProps = {
+  user: UserData;
+};
+
+export type UserRoomProps = {
+  room: Room;
   user: UserData;
 };

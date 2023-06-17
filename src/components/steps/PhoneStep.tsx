@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { PatternFormat } from "react-number-format";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Axios } from "../../../core/axios";
 
 import { setPhone, setStep, stepSelector } from "@/redux/slice/main";
@@ -11,6 +11,8 @@ import StepButton from "../StepButton";
 const PhoneStep: React.FC = () => {
   const [phoneNum, setPhoneNum] = React.useState("");
   const [isDisabled, setIsDisabled] = React.useState(true);
+
+  const { withGithub } = useSelector(stepSelector);
   const dp = useDispatch();
 
   const onNextStep = async () => {
@@ -24,6 +26,9 @@ const PhoneStep: React.FC = () => {
       dp(setPhone(origPhone));
       dp(setStep(5));
 
+      if (!withGithub) {
+        return await Axios.get(`/auth/sms/nogit?phone=${origPhone}`);
+      }
       await Axios.get(`/auth/sms?phone=${origPhone}`);
     } catch (error) {
       return console.warn("Failed in phone step", error);

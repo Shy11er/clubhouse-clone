@@ -5,9 +5,15 @@ type Props = {
   fullName: string;
   imageUrl?: string;
   isUserAvatar: boolean;
+  isVoice?: boolean;
 };
 
-const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
+const Avatar: React.FC<Props> = ({
+  fullName,
+  imageUrl = "",
+  isUserAvatar,
+  isVoice,
+}) => {
   const spl = fullName
     .split(" ")
     .map((el) => el[0].toUpperCase())
@@ -15,14 +21,16 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
 
   if (isUserAvatar) {
     return (
-      <>
+      <div className={isVoice && "rounded-full h-fit border-4 border-black"}>
         {imageUrl !== "" ? (
           <Image
             src={imageUrl}
             width="24"
             height="24"
             alt="logo"
-            className={"w-12 h-12 rounded-full"}
+            className={`w-12 h-12 rounded-full ${
+              isVoice ? " border-2 border-red" : ""
+            }`}
           />
         ) : (
           <div
@@ -31,12 +39,12 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
             <h1>{spl}</h1>
           </div>
         )}
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className={isVoice && "rounded-full h-fit border-4 border-black"}>
       {imageUrl !== "" ? (
         <Image
           src={imageUrl}
@@ -52,7 +60,7 @@ const Avatar: React.FC<Props> = ({ fullName, imageUrl = "", isUserAvatar }) => {
           <h1>{spl}</h1>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
