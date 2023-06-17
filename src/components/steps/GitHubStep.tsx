@@ -28,7 +28,7 @@ const GitHubStep: React.FC = () => {
   const onRegister = () => {
     onNextStep(2);
     dp(setWithGit(false));
-  }
+  };
 
   const onNextStep = (data: number) => {
     dp(setStep(data));

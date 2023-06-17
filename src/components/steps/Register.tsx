@@ -7,6 +7,7 @@ import StepButton from "../StepButton";
 import { setStep, stepSelector, setFullName } from "@/redux/slice/main";
 import { UserApi } from "../../../api/UserApi";
 import { Axios } from "../../../core/axios";
+import Cookies from "js-cookie";
 
 const Register: React.FC = () => {
   const { fullname, withGithub, avatarUrl } = useSelector(stepSelector);
@@ -26,7 +27,12 @@ const Register: React.FC = () => {
           avatarUrl,
           username: "test",
         };
-        await UserApi(Axios).register(data);
+
+        const obj = await UserApi(Axios).register(data);
+        if (Cookies.get("token"))
+          Cookies.remove("token", { path: "/", domain: "localhost" });
+
+        Cookies.set("token", obj.token);
       } catch (error) {
         alert("Failed with registration");
       }

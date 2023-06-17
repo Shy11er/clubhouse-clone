@@ -1,15 +1,12 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import { UserData } from "@/redux/slice/main";
-
-dotenv.config({ path: "/server/.env" });
+import { UserData } from "./types";
 
 export const createJwtToken = (user: UserData): string => {
   const token = jwt.sign(
     {
       data: user,
     },
-    process.env.SECRET_KEY_JWT || "",
+    "asfasfdssd",
     { expiresIn: "30d", algorithm: "HS256" }
   );
 

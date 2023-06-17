@@ -29,11 +29,10 @@ class authController {
         phone: "",
       };
 
-      obj.token = createJwtToken(obj);
-
       const user = await User.create(obj);
-
-      res.send(user);
+      user.token = createJwtToken(user);
+      const objToJson = user.toJSON();
+      res.send({ user: { data: objToJson }, token: user.token });
     } catch (error) {
       console.log(error);
       return res.status(500).json({
@@ -44,7 +43,7 @@ class authController {
 
   //!ACTIVATE ACCOUNT
   async activate(req: Request, res: Response) {
-    const userId = req.user.data?.id;
+    const userId = req.user?.data?.id;
     const smsCode = req.query.code;
 
     if (!smsCode) {
@@ -81,9 +80,8 @@ class authController {
   //! SEND SMS TO PHONE
   async sendSMS(req: Request, res: Response) {
     const phone = req.query.phone;
-    console.log("first")
-    const userId = req.user.data?.id;
-    console.log("second")
+    // console.log(req);
+    const userId = req.user?.data?.id;
     const code: string = (
       Math.floor(Math.random() * (9999 - 1001)) + 1000
     ).toString();
@@ -124,7 +122,7 @@ class authController {
       });
 
       if (findOne) {
-        console.log("fined")
+        console.log("fined");
         await User.update({ phone }, { where: { id: userId } });
       }
       console.log(code);
@@ -138,6 +136,7 @@ class authController {
         user_id: userId,
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         message: "Failed to send SMS-code",
       });
