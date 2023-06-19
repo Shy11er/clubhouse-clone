@@ -9,12 +9,12 @@ type Props = {
 };
 
 const Avatar: React.FC<Props> = ({
-  fullName,
+  fullName = "",
   imageUrl = "",
   isUserAvatar,
   isVoice,
 }) => {
-  const spl = fullName
+  const spl = fullName &&fullName
     .split(" ")
     .map((el) => el[0].toUpperCase())
     .join("");

@@ -36,12 +36,13 @@ const PhoneActivate: React.FC = () => {
       await Axios.get(`/auth/sms/activate?code=${code}`);
       route.push("/rooms");
       window.localStorage.removeItem("step");
+      setIsLoading(false);
     } catch (e) {
       setCodes(() => ["", "", "", ""]);
       alert("Connection failed in phone activating step!");
       console.error(e);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const cell = (v: any) => {

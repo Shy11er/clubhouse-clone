@@ -28,15 +28,28 @@ const io = new Server(server, {
   },
 });
 
+const rooms: Record<string, any> = {};
+
 io.on("connection", (socket) => {
   console.log("JOIN TO SOCKET");
-  socket.on("client@rooms:join", (user, roomId) => {
+
+  socket.on("client@rooms:join", ({ user, roomId }) => {
     socket.join(`room/${roomId}`);
-    socket.broadcast.to(`room/${roomId}`).emit("server@rooms:join", user);
+    rooms[socket.id] = { roomId, user };
+    io.in(`room/${roomId}`).emit(
+      "server@rooms:join",
+      Object.values(rooms)
+        .filter((obj) => obj.roomId === roomId)
+        .map((obj) => obj.user)
+    );
   });
 
-  socket.on("disconnecting", () => {
-    console.log("disconnected");
+  socket.on("disconnect", () => {
+    if (rooms[socket.id]) {
+      const { roomId, user } = rooms[socket.id];
+      socket.broadcast.to(`room/${roomId}`).emit("server@rooms:leave", user);
+      delete rooms[socket.id];
+    }
   });
 });
 
@@ -62,11 +75,7 @@ app.get(
   AuthController.sendSMS
 );
 
-app.get(
-  "/auth/sms/nogit",
-  handleCheckAuth,
-  AuthController.sendSMS
-);
+app.get("/auth/sms/nogit", handleCheckAuth, AuthController.sendSMS);
 
 app.get(
   "/auth/sms/activate",

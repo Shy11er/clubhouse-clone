@@ -9,29 +9,29 @@ import { Api } from "../../../api";
 import { RoomApi } from "../../../api/RoomApi";
 import Button from "@/components/Button";
 import { Axios } from "../../../core/axios";
-import { UserRoomProps } from "../../../utils/types";
+import { UserData, UserRoomProps } from "../../../utils/types";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/router";
 
 type SpeakersType = {
-  username: string;
+  fullname: string;
   avatarUrl: string;
 };
 
-const Speakers: React.FC<SpeakersType> = ({ username, avatarUrl }) => {
+const Speakers: React.FC<SpeakersType> = ({ fullname, avatarUrl }) => {
   return (
     <div className="flex flex-col h-fit text-center items-center w-fit m-2">
-      <Avatar fullName={username} isUserAvatar imageUrl={avatarUrl} />
-      <h1 className="text-xl w-1/2">{username}</h1>
+      <Avatar fullName={fullname} isUserAvatar imageUrl={avatarUrl} />
+      <h1 className="text-xl w-1/2">{fullname}</h1>
     </div>
   );
 };
 
 const UserRoom: React.FC<UserRoomProps> = ({ room, user }) => {
-  const socketRef = React.useRef<Socket>();
-  const [users, setUsers] = React.useState<SpeakersType[]>([]);
   const router = useRouter();
-  console.log(router.query);
+  const socketRef = React.useRef<Socket>();
+  const [users, setUsers] = React.useState<UserData[]>([]);
+
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       socketRef.current = io("http://localhost:3333");
@@ -41,9 +41,16 @@ const UserRoom: React.FC<UserRoomProps> = ({ room, user }) => {
         roomId: router.query.id,
       });
 
-      socketRef.current.emit("server@rooms:join", (s) => {
-        console.log(s);
+      socketRef.current.on("server@rooms:leave", (user: UserData) => {
+        setUsers((prev) => prev.filter((obj) => obj.id !== user.id));
       });
+
+      socketRef.current.on("server@rooms:join", (allUsers) => {
+        console.log(allUsers);
+        setUsers(allUsers);
+      });
+
+      setUsers((prev) => [...prev, user]);
     }
 
     return () => {
