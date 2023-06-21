@@ -15,7 +15,7 @@ export const RoomApi = (instance: AxiosInstance) => {
     },
     createRoom: async (form: {
       title: string;
-      type: RoomType;
+      type: string;
     }): Promise<Room> => {
       const { data } = await instance.post("/rooms/", form);
       return data;

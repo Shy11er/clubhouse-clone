@@ -1,17 +1,29 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import { combineReducers, configureStore, Store } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
 import stepSlice from "./slice/main";
+import roomSlice from "./slice/room";
 
-const store = configureStore({
-  reducer: {
-    stepSlice,
-  },
+const rootReducer = combineReducers({
+  roomSlice,
+  stepSlice,
 });
 
-export type RootState = ReturnType<typeof store.getState>
+// export type RootState = ReturnType<typeof rootReducer>;
 
-type appDispatch = typeof store.dispatch;
+export const store = (): Store<RootState> => {
+  return configureStore({
+    reducer: {
+      roomSlice,
+      stepSlice,
+      // steps: stepSlice,
+    },
+  });
+};
 
-export const useAppDispatch = () => useDispatch<appDispatch>;
+export const wrapper = createWrapper(store);
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof store>;
 
-export default store;
+export type AppDispatch = AppStore["dispatch"];
+
+// export const wrapper = createWrapper(store, { debug: true });

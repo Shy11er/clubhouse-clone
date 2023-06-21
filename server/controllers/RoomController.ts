@@ -18,7 +18,7 @@ class postController {
         title: req.body.title,
         type: req.body.type,
       };
-      
+
       if (!data.title || !data.type) {
         return res
           .status(400)

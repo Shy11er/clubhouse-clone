@@ -12,6 +12,7 @@ import { Axios } from "../../../core/axios";
 import { UserData, UserRoomProps } from "../../../utils/types";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/router";
+import { useSocket } from "../../../hooks/useSocket";
 
 type SpeakersType = {
   fullname: string;
@@ -28,24 +29,22 @@ const Speakers: React.FC<SpeakersType> = ({ fullname, avatarUrl }) => {
 };
 
 const UserRoom: React.FC<UserRoomProps> = ({ room, user }) => {
-  const router = useRouter();
-  const socketRef = React.useRef<Socket>();
   const [users, setUsers] = React.useState<UserData[]>([]);
+  const router = useRouter();
+  const socket = useSocket();
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      socketRef.current = io("http://localhost:3333");
-
-      socketRef.current.emit("client@rooms:join", {
+      socket.emit("client@rooms:join", {
         user,
         roomId: router.query.id,
       });
 
-      socketRef.current.on("server@rooms:leave", (user: UserData) => {
+      socket.on("server@rooms:leave", (user: UserData) => {
         setUsers((prev) => prev.filter((obj) => obj.id !== user.id));
       });
 
-      socketRef.current.on("server@rooms:join", (allUsers) => {
+      socket.on("server@rooms:join", (allUsers) => {
         console.log(allUsers);
         setUsers(allUsers);
       });
@@ -54,7 +53,7 @@ const UserRoom: React.FC<UserRoomProps> = ({ room, user }) => {
     }
 
     return () => {
-      socketRef.current.disconnect();
+      socket.disconnect();
     };
   }, []);
 

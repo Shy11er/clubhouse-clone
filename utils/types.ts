@@ -20,7 +20,7 @@ export type UserInfoProps = {
 export type RoomCardProps = {
   title: string;
   avatars: string[];
-  speakers: string[];
+  speakers: UserData[];
   listenersCount: number;
 };
 

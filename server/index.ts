@@ -8,11 +8,14 @@ import { passport } from "./cors/passport";
 import bodyParser from "body-parser";
 import { createServer } from "http";
 import socket, { Server } from "socket.io";
+import { Room } from "../models";
 
 import AuthController from "./controllers/AuthController";
 import RoomController from "./controllers/RoomController";
 import { storage } from "./controllers/Uploader";
 import handleCheckAuth from "../utils/handleCheckAuth";
+import { UserData } from "../utils/types";
+import { sequelize } from "./cors/db";
 
 dotenv.config({
   path: "/server/.env",
@@ -28,7 +31,7 @@ const io = new Server(server, {
   },
 });
 
-const rooms: Record<string, any> = {};
+const rooms: Record<string, { roomId: string; user: UserData }> = {};
 
 io.on("connection", (socket) => {
   console.log("JOIN TO SOCKET");
@@ -36,19 +39,35 @@ io.on("connection", (socket) => {
   socket.on("client@rooms:join", ({ user, roomId }) => {
     socket.join(`room/${roomId}`);
     rooms[socket.id] = { roomId, user };
-    io.in(`room/${roomId}`).emit(
-      "server@rooms:join",
-      Object.values(rooms)
-        .filter((obj) => obj.roomId === roomId)
-        .map((obj) => obj.user)
+    const users = Object.values(rooms)
+      .filter((obj) => obj.roomId === roomId)
+      .map((obj) => obj.user);
+    io.in(`room/${roomId}`).emit("server@rooms:join", users);
+    Room.update(
+      {
+        speakers: users,
+      },
+      { where: { id: roomId } }
     );
+    Room.increment("listenersCount", { by: 1, where: { id: roomId } });
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     if (rooms[socket.id]) {
       const { roomId, user } = rooms[socket.id];
-      socket.broadcast.to(`room/${roomId}`).emit("server@rooms:leave", user);
       delete rooms[socket.id];
+      const users = Object.values(rooms)
+        .filter((obj) => obj.roomId === roomId)
+        .map((obj) => obj.user);
+      socket.broadcast.to(`room/${roomId}`).emit("server@rooms:leave", user);
+      await Room.update(
+        {
+          speakers: users,
+        },
+        { where: { id: roomId } }
+      );
+      await Room.decrement("listenersCount", { by: 1, where: { id: roomId } });
+      
     }
   });
 });

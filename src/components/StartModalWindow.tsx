@@ -3,11 +3,20 @@ import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Button from "./Button";
 import { useRouter } from "next/router";
-import { RoomApi, RoomType } from "../../api/RoomApi";
+import { RoomApi } from "../../api/RoomApi";
 import { Axios } from "../../core/axios";
+import { useAppDispatch, useAppSelector } from "../../hooks/UseStore";
+import { useDispatch } from "react-redux";
+import { roomSelector, setRooms, updateRoomSpeakers } from "@/redux/slice/room";
+import { useSelector } from "react-redux";
 
 type Props = {
   onClose: () => void;
+};
+
+type fetchType = {
+  title: string;
+  type: string;
 };
 
 const roomTypes = [
@@ -18,22 +27,28 @@ const roomTypes = [
 
 export const StartModalWindow: React.FC<Props> = ({ onClose }) => {
   const router = useRouter();
-  const [isActive, setIsActive] = React.useState(0);
-  const [searchValue, setSearchValue] = React.useState("");
-
+  const [isActive, setIsActive] = React.useState<number>(0);
+  const [searchValue, setSearchValue] = React.useState<string>("");
+  const dispatch = useAppDispatch();
+  const { items } = useAppSelector(roomSelector);
+  console.log(items);
   const onSubmit = async () => {
     try {
       // const room = await Axios.post("/rooms", form);
-      const form = {
+      const form: fetchType = {
         title: searchValue,
         type: roomTypes[isActive][0],
-      } as any;
+      };
 
-      if (!searchValue) {
-        return alert("Enter room name");
-      }
-
+      // if (!searchValue) {
+      //   return alert("Enter room name");
+      // }
+      // const data = await dispatch(
+      //   fetchCreateRoom({ title: form.title, type: form.type })
+      // );
+      // console.log(data.payload);
       const room = await RoomApi(Axios).createRoom(form);
+      dispatch(setRooms(room));
       onClose();
       router.push(`/rooms/${room.id}`);
     } catch (error) {

@@ -19,7 +19,8 @@ type RoomPageProps = {
 
 const RoomPage: NextPage<RoomPageProps> = ({ rooms, user }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-
+  console.log(rooms);
+  React.useEffect(() => {}, [rooms]);
   return (
     <>
       {isVisible && <StartModalWindow onClose={() => setIsVisible(false)} />}
