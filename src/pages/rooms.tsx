@@ -11,6 +11,7 @@ import { StartModalWindow } from "@/components/StartModalWindow";
 import { Api } from "../../api";
 import RoomCard from "@/components/RoomCard";
 import { Room, UserData } from "../../utils/types";
+import { useSocket } from "../../hooks/useSocket";
 
 type RoomPageProps = {
   rooms: Room[];
@@ -19,8 +20,16 @@ type RoomPageProps = {
 
 const RoomPage: NextPage<RoomPageProps> = ({ rooms, user }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-  console.log(rooms);
-  React.useEffect(() => {}, [rooms]);
+  const socket = useSocket();
+
+  console.log(rooms, user);
+  // React.useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     socket.emit("server@rooms:home", { user });
+
+      
+  //   }
+  // }, []);
   return (
     <>
       {isVisible && <StartModalWindow onClose={() => setIsVisible(false)} />}

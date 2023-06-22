@@ -5,10 +5,6 @@ import Button from "./Button";
 import { useRouter } from "next/router";
 import { RoomApi } from "../../api/RoomApi";
 import { Axios } from "../../core/axios";
-import { useAppDispatch, useAppSelector } from "../../hooks/UseStore";
-import { useDispatch } from "react-redux";
-import { roomSelector, setRooms, updateRoomSpeakers } from "@/redux/slice/room";
-import { useSelector } from "react-redux";
 
 type Props = {
   onClose: () => void;
@@ -29,9 +25,7 @@ export const StartModalWindow: React.FC<Props> = ({ onClose }) => {
   const router = useRouter();
   const [isActive, setIsActive] = React.useState<number>(0);
   const [searchValue, setSearchValue] = React.useState<string>("");
-  const dispatch = useAppDispatch();
-  const { items } = useAppSelector(roomSelector);
-  console.log(items);
+
   const onSubmit = async () => {
     try {
       // const room = await Axios.post("/rooms", form);
@@ -48,7 +42,6 @@ export const StartModalWindow: React.FC<Props> = ({ onClose }) => {
       // );
       // console.log(data.payload);
       const room = await RoomApi(Axios).createRoom(form);
-      dispatch(setRooms(room));
       onClose();
       router.push(`/rooms/${room.id}`);
     } catch (error) {

@@ -34,11 +34,16 @@ const io = new Server(server, {
 const rooms: Record<string, { roomId: string; user: UserData }> = {};
 
 io.on("connection", (socket) => {
-  console.log("JOIN TO SOCKET");
+  console.log("JOIN TO SOCKET ", socket.id);
 
+  // socket.on('server@rooms:home', () => {
+    
+  // });
+  
   socket.on("client@rooms:join", ({ user, roomId }) => {
     socket.join(`room/${roomId}`);
     rooms[socket.id] = { roomId, user };
+    console.log(rooms);
     const users = Object.values(rooms)
       .filter((obj) => obj.roomId === roomId)
       .map((obj) => obj.user);
@@ -56,6 +61,7 @@ io.on("connection", (socket) => {
     if (rooms[socket.id]) {
       const { roomId, user } = rooms[socket.id];
       delete rooms[socket.id];
+      console.log(rooms);
       const users = Object.values(rooms)
         .filter((obj) => obj.roomId === roomId)
         .map((obj) => obj.user);
@@ -67,7 +73,6 @@ io.on("connection", (socket) => {
         { where: { id: roomId } }
       );
       await Room.decrement("listenersCount", { by: 1, where: { id: roomId } });
-      
     }
   });
 });

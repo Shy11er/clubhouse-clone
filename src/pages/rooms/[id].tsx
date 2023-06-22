@@ -1,6 +1,5 @@
 import React from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import io, { Socket } from "socket.io-client";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 
@@ -13,6 +12,7 @@ import { UserData, UserRoomProps } from "../../../utils/types";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/router";
 import { useSocket } from "../../../hooks/useSocket";
+import { io } from "socket.io-client";
 
 type SpeakersType = {
   fullname: string;
@@ -32,24 +32,30 @@ const UserRoom: React.FC<UserRoomProps> = ({ room, user }) => {
   const [users, setUsers] = React.useState<UserData[]>([]);
   const router = useRouter();
   const socket = useSocket();
-
+  console.log(users);
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       socket.emit("client@rooms:join", {
         user,
         roomId: router.query.id,
       });
-
+      console.log("connect");
       socket.on("server@rooms:leave", (user: UserData) => {
         setUsers((prev) => prev.filter((obj) => obj.id !== user.id));
+        console.log("leaved");
       });
 
       socket.on("server@rooms:join", (allUsers) => {
-        console.log(allUsers);
+        console.log(allUsers, "connect");
         setUsers(allUsers);
       });
 
-      setUsers((prev) => [...prev, user]);
+      setUsers((prev) => {
+        if (prev.includes(user)) {
+          return prev;
+        }
+        return [...prev, user];
+      });
     }
 
     return () => {

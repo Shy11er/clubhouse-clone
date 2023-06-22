@@ -92,20 +92,20 @@ class authController {
       });
     }
 
-    const options = {
-      method: "POST",
-      url: "https://telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com/sms-verification-code",
-      params: {
-        phoneNumber: "79871169415",
-        verifyCode: code,
-        appName: "clubhouse",
-      },
-      headers: {
-        "X-RapidAPI-Key": "fbca8a04f8msh354fe5934e12c41p1345bdjsndfb2375ea4c9",
-        "X-RapidAPI-Host":
-          "telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com",
-      },
-    };
+    // const options = {
+    //   method: "POST",
+    //   url: "https://telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com/sms-verification-code",
+    //   params: {
+    //     phoneNumber: "79871169415",
+    //     verifyCode: code,
+    //     appName: "clubhouse",
+    //   },
+    //   headers: {
+    //     "X-RapidAPI-Key": "fbca8a04f8msh354fe5934e12c41p1345bdjsndfb2375ea4c9",
+    //     "X-RapidAPI-Host":
+    //       "telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com",
+    //   },
+    // };
 
     try {
       /*
@@ -122,7 +122,6 @@ class authController {
       });
 
       if (findOne) {
-        console.log("fined");
         await User.update({ phone }, { where: { id: userId } });
       }
       console.log(code);
